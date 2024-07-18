@@ -2,13 +2,14 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
+  TextInput,
   View,
   Image,
 } from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { LinearGradient } from "expo-linear-gradient";
-import { Ionicons, Entypo, FontAwesome5 } from "@expo/vector-icons";
+import {  Entypo, FontAwesome5 } from "@expo/vector-icons";
 
 import { useRouter, Link } from "expo-router";
 const CreateAccount = () => {
