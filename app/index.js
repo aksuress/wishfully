@@ -160,7 +160,7 @@ const index = () => {
                   fontWeight: "900",
                   lineHeight: 22,
                   textAlign: "center",
-                  color: "#00A876",
+                  color: "#00A879",
                 }}
               >
                 Log In
