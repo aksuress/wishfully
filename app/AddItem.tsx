@@ -2,15 +2,20 @@ import {
   Platform,
   StyleSheet,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { color, fontFamily } from "../utils/Color";
-import { spacing } from "@/utils/sizes";
+import { spacing, fontSizes } from "@/utils/sizes";
 import { useRouter } from "expo-router";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
+import { TextInput } from "react-native-element-textinput";
+import { ShadowedView, shadowStyle } from "react-native-fast-shadow";
 
 const AddItem: React.FC = () => {
   const router = useRouter();
@@ -27,7 +32,7 @@ const AddItem: React.FC = () => {
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "space-between",
-          paddingHorizontal: 15,
+          paddingHorizontal: "5%",
         }}
       >
         <Text style={styles.heading}>Add Item</Text>
@@ -42,72 +47,85 @@ const AddItem: React.FC = () => {
           flexDirection: "row",
         }}
       >
-        <View style={{ flex: 2, backgroundColor: color.green }}></View>
+        <View
+          style={{
+            flex: 2,
+            borderTopRightRadius: 4,
+            borderBottomEndRadius: 4,
+            backgroundColor: color.green,
+          }}
+        ></View>
         <View style={{ flex: 8, backgroundColor: color.progressGreen }}></View>
       </View>
       <View
         style={{
-          flex: 8.2,
+          flex: 6.2,
           justifyContent: "center",
-          paddingHorizontal: 15,
+          paddingHorizontal: "4%",
         }}
       >
         <View style={{ flexDirection: "row" }}>
-          <View style={{ flex: 7.6 }}>
+          <View style={{ flex: 8.5 }}>
             <Text
               style={{
                 fontFamily: fontFamily.DMSans_700,
-                fontSize: 32,
+                fontSize: wp(fontSizes[32]),
                 lineHeight: 48,
               }}
             >
-              Start with a link to the product or add manually
+              Start with a link to the product or
+            </Text>
+            <Text
+              style={{
+                fontFamily: fontFamily.DMSans_700,
+                fontSize: wp(fontSizes[32]),
+                lineHeight: 48,
+              }}
+            >
+              add manually
             </Text>
           </View>
-          <View style={{ flex: 2.4 }}></View>
+          <View style={{ flex: 1.5 }}></View>
         </View>
         <View
           style={{
-            marginTop: 25,
-            marginBottom: 5,
+            marginTop: "6%",
+            marginBottom: "2%",
           }}
         >
           <Text
             style={{
-              fontFamily: fontFamily.DMSans_700,
-              fontSize: 14,
-              lineHeight: 21,
+              fontFamily: fontFamily.DMSans_500,
+              fontSize: wp(fontSizes[13]),
+              //lineHeight: 21,
+              marginBottom: "2%",
             }}
           >
             Paste link to the product
           </Text>
+
           <TextInput
-            style={{
-              width: "100%",
-              borderColor: "#00000040",
-              borderWidth: 1,
-              padding: 5,
-              backgroundColor: "#FFFFFF",
-            }}
+            style={styles.Inputstyle}
+            inputStyle={{ fontSize: wp(fontSizes[20]) }}
           />
         </View>
         <View
           style={{
-            marginVertical: 15,
+            marginVertical: "4%",
           }}
         >
           <Text
             style={{
               fontFamily: fontFamily.DMSans_700,
-              fontSize: 14,
-              lineHeight: 22,
+              fontSize: wp(fontSizes[22]),
+              //lineHeight: 22,
               textAlign: "center",
             }}
           >
             or
           </Text>
         </View>
-        <View style={{ paddingVertical: 7 }}>
+        <View style={{ paddingVertical: "1%" }}>
           <TouchableOpacity
             onPress={() => router.navigate("AddItem")}
             style={{
@@ -115,14 +133,14 @@ const AddItem: React.FC = () => {
               width: "100%",
               alignItems: "center",
               justifyContent: "center",
-              padding: 7,
+              padding: "4%",
               borderWidth: 1,
               backgroundColor: color.white,
             }}
           >
             <Text
               style={{
-                fontSize: 18,
+                fontSize: wp(fontSizes[22]),
                 lineHeight: 22,
                 fontFamily: fontFamily.DMSans_700,
                 color: color.green,
@@ -135,47 +153,46 @@ const AddItem: React.FC = () => {
       </View>
       <View
         style={{
+          flex: 0.8,
+        }}
+      ></View>
+      <ShadowedView
+        style={{
           flex: 1.3,
           alignItems: "center",
           justifyContent: "center",
           backgroundColor: color.white,
-          paddingHorizontal: spacing.sm,
-
-          ...Platform.select({
-            ios: {
-              shadowColor: color.black,
-              shadowOffset: { width: 0, height: -3 }, // Only top shadow
-              shadowOpacity: 0.5,
-              shadowRadius: 3,
-            },
-            android: {
-              elevation: 25,
-            },
+          paddingHorizontal: "4%",
+          ...shadowStyle({
+            color: color.grey,
+            opacity: 0.25,
+            radius: 30,
+            offset: [0, -2],
           }),
         }}
       >
         <TouchableOpacity
           style={{
             width: "100%",
-            backgroundColor: color.green,
+            backgroundColor: color.blueGreen,
             borderRadius: 4,
-            padding: spacing.md,
+            padding: "4.5%",
           }}
           onPress={() => router.navigate("Product")}
         >
           <Text
             style={{
               color: color.white,
-              fontSize: 18,
+              fontSize: wp(fontSizes[20]),
               fontFamily: fontFamily.Avenir_700,
               textAlign: "center",
-              lineHeight: 22,
+              //lineHeight: 22,
             }}
           >
             Continue
           </Text>
         </TouchableOpacity>
-      </View>
+      </ShadowedView>
     </SafeAreaView>
   );
 };
@@ -184,13 +201,20 @@ export default AddItem;
 
 const styles = StyleSheet.create({
   heading: {
-    fontSize: 24,
+    fontSize: wp(fontSizes[26]),
     lineHeight: 36,
     fontFamily: fontFamily.DMSans_700,
   },
   cancel: {
     color: color.red,
-    fontSize: 14,
+    fontSize: wp(fontSizes[20]),
     fontFamily: fontFamily.DMSans_700,
+  },
+  Inputstyle: {
+    backgroundColor: color.pureWhite,
+    borderColor: color.borderBlue,
+    borderWidth: 1,
+    borderRadius: 8,
+    paddingHorizontal: "2%",
   },
 });

@@ -13,7 +13,12 @@ import DateTimePicker, {
 } from "@react-native-community/datetimepicker";
 import { useRouter } from "expo-router";
 import { color, fontFamily } from "../utils/Color";
-import { spacing } from "../utils/sizes";
+import { spacing, fontSizes } from "../utils/sizes";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
+import { ShadowedView, shadowStyle } from "react-native-fast-shadow";
 
 // Define types for state and functions
 type Mode = "date" | "time";
@@ -47,7 +52,7 @@ const Preference3: React.FC = () => {
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "space-between",
-          paddingHorizontal: 15,
+          paddingHorizontal: "5%",
         }}
       >
         <Text style={styles.heading}>Create Event</Text>
@@ -57,50 +62,73 @@ const Preference3: React.FC = () => {
             style={{
               color: color.red,
               fontFamily: fontFamily.DMSans_700,
-              fontSize: 14,
+              fontSize: wp(fontSizes[20]),
             }}
           >
             Cancel
           </Text>
         </TouchableOpacity>
       </View>
-      <View style={{ flex: 0.2, flexDirection: "row" }}>
-        <View style={{ flex: 5, backgroundColor: color.green }}></View>
+      <View
+        style={{
+          flex: 0.2,
+          flexDirection: "row",
+        }}
+      >
+        <View
+          style={{
+            flex: 5,
+            backgroundColor: color.green,
+            borderTopRightRadius: 4,
+            borderBottomEndRadius: 4,
+          }}
+        ></View>
         <View style={{ flex: 5, backgroundColor: color.progressGreen }}></View>
       </View>
       <View
         style={{
           flex: 8,
           alignItems: "center",
-          justifyContent: "flex-start",
-          paddingHorizontal: 10,
+          justifyContent: "center",
+          paddingHorizontal: "5%",
         }}
       >
-        <View style={{ flex: 5, justifyContent: "center" }}>
-          <Text
-            style={{
-              fontFamily: fontFamily.DMSans_700,
-              fontSize: 32,
-              lineHeight: 48,
-            }}
-          >
-            Do you need responses by a certain date?
-          </Text>
+        <View
+          style={{
+            flex: 5,
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "flex-end",
+            paddingBottom: "10%",
+          }}
+        >
+          <View style={{ flex: 8 }}>
+            <Text
+              style={{
+                fontFamily: fontFamily.DMSans_700,
+                fontSize: wp(fontSizes[32]),
+                //lineHeight: 48,
+              }}
+            >
+              Do you need responses by a certain date?
+            </Text>
+          </View>
+          <View style={{ flex: 2 }}></View>
         </View>
-        <View style={{ flex: 5, justifyContent: "flex-start" }}>
+        <View style={{ flex: 5, justifyContent: "flex-start", gap: 20 }}>
           <View
             style={{
               width: "100%",
               flexDirection: "row",
-              justifyContent: "space-around",
+              justifyContent: "space-between",
               alignItems: "center",
             }}
           >
             <TouchableOpacity
               style={{
-                backgroundColor: color.green,
-                paddingVertical: 15,
-                paddingHorizontal: 20,
+                backgroundColor: color.blueGreen,
+                paddingVertical: "5%",
+                paddingHorizontal: "8%",
                 borderRadius: 4,
               }}
             >
@@ -108,8 +136,8 @@ const Preference3: React.FC = () => {
                 style={{
                   color: color.white,
                   fontFamily: fontFamily.DMSans_700,
-                  fontSize: 16,
-                  lineHeight: 22,
+                  fontSize: wp(fontSizes[18]),
+                  //lineHeight: 22,
                 }}
               >
                 No
@@ -117,8 +145,8 @@ const Preference3: React.FC = () => {
             </TouchableOpacity>
             <TouchableOpacity
               style={{
-                backgroundColor: color.green,
-                padding: 15,
+                backgroundColor: color.blueGreen,
+                padding: "5%",
                 borderRadius: 4,
               }}
             >
@@ -126,8 +154,8 @@ const Preference3: React.FC = () => {
                 style={{
                   color: color.white,
                   fontFamily: fontFamily.DMSans_700,
-                  fontSize: 16,
-                  lineHeight: 22,
+                  fontSize: wp(fontSizes[18]),
+                  //lineHeight: 22,
                 }}
               >
                 1 day before
@@ -135,8 +163,8 @@ const Preference3: React.FC = () => {
             </TouchableOpacity>
             <TouchableOpacity
               style={{
-                backgroundColor: color.green,
-                padding: 15,
+                backgroundColor: color.blueGreen,
+                padding: "5%",
                 borderRadius: 4,
               }}
             >
@@ -144,32 +172,32 @@ const Preference3: React.FC = () => {
                 style={{
                   color: color.white,
                   fontFamily: fontFamily.DMSans_700,
-                  fontSize: 16,
-                  lineHeight: 22,
+                  fontSize: wp(fontSizes[18]),
+                  //lineHeight: 22,
                 }}
               >
                 1 week before
               </Text>
             </TouchableOpacity>
           </View>
-          <View style={{ marginVertical: 15 }}>
-            <Text
-              style={{
-                fontFamily: fontFamily.DMSans_700,
-                fontSize: 12,
-                lineHeight: 22,
-                textAlign: "center",
-              }}
-            >
-              or
-            </Text>
-          </View>
+
+          <Text
+            style={{
+              fontFamily: fontFamily.DMSans_700,
+              fontSize: 12,
+              lineHeight: 22,
+              textAlign: "center",
+            }}
+          >
+            or
+          </Text>
+
           <TouchableOpacity onPress={showDatepicker}>
             <Text
               style={{
                 fontFamily: fontFamily.DMSans_700,
-                fontSize: 16,
-                color: "#0386BA",
+                fontSize: wp(fontSizes[18]),
+                color: color.navyBlue,
                 textAlign: "center",
               }}
             >
@@ -187,39 +215,38 @@ const Preference3: React.FC = () => {
           )}
         </View>
       </View>
-      <View
+
+      <ShadowedView
         style={{
           flex: 1.3,
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "space-evenly",
           backgroundColor: color.white,
-          ...Platform.select({
-            ios: {
-              shadowColor: color.black,
-              shadowOffset: { width: 0, height: -3 },
-              shadowOpacity: 0.5,
-              shadowRadius: 3,
-            },
-            android: { elevation: 25 },
+          ...shadowStyle({
+            color: color.grey,
+            opacity: 0.25,
+            radius: 30,
+            offset: [0, -2],
           }),
         }}
       >
         <TouchableOpacity
           style={{
-            borderWidth: 1,
+            borderWidth: 1.5,
             borderColor: color.green,
             borderRadius: 4,
             flex: 2,
-            marginHorizontal: 15,
-            padding: spacing.md,
+            marginHorizontal: "5%",
+            paddingVertical: "4%",
+            paddingHorizontal: "2%",
           }}
           onPress={() => router.back()}
         >
           <Text
             style={{
               color: color.green,
-              fontSize: 18,
+              fontSize: wp(fontSizes[22]),
               fontFamily: fontFamily.Avenir_700,
               textAlign: "center",
             }}
@@ -229,20 +256,20 @@ const Preference3: React.FC = () => {
         </TouchableOpacity>
         <TouchableOpacity
           style={{
-            backgroundColor: color.green,
+            backgroundColor: color.blueGreen,
             flex: 3,
             borderWidth: 1,
-            borderColor: color.green,
             borderRadius: 4,
-            marginRight: 15,
-            padding: spacing.md,
+            borderColor: color.green,
+            marginRight: "5%",
+            padding: "4%",
           }}
           onPress={() => router.navigate("ReviewEvent")}
         >
           <Text
             style={{
               color: color.white,
-              fontSize: 18,
+              fontSize: wp(fontSizes[22]),
               fontFamily: fontFamily.Avenir_700,
               textAlign: "center",
             }}
@@ -250,7 +277,7 @@ const Preference3: React.FC = () => {
             Skip
           </Text>
         </TouchableOpacity>
-      </View>
+      </ShadowedView>
     </SafeAreaView>
   );
 };
@@ -259,8 +286,9 @@ export default Preference3;
 
 const styles = StyleSheet.create({
   heading: {
-    fontSize: 24,
-    lineHeight: 36,
+    fontSize: wp(fontSizes[26]),
+    //lineHeight: 36,
     fontFamily: fontFamily.DMSans_700,
+    color: color.black,
   },
 });

@@ -11,6 +11,11 @@ import { useRouter } from "expo-router";
 import { LinearGradient } from "expo-linear-gradient";
 import { color, fontFamily } from "../../../utils/Color";
 import { fontSizes, spacing } from "../../../utils/sizes";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
+import { ShadowedView, shadowStyle } from "react-native-fast-shadow";
 
 const index: React.FC = () => {
   const router = useRouter();
@@ -18,7 +23,7 @@ const index: React.FC = () => {
     <SafeAreaView
       style={{
         flex: 1,
-        padding: 15,
+        backgroundColor: color.lightBlue,
       }}
     >
       <View
@@ -26,6 +31,7 @@ const index: React.FC = () => {
           flex: 1.5,
           alignItems: "flex-start",
           justifyContent: "center",
+          paddingHorizontal: wp("4%"),
         }}
       >
         <Text style={styles.heading}>Groups</Text>
@@ -33,6 +39,7 @@ const index: React.FC = () => {
       <View
         style={{
           flex: 2,
+          paddingHorizontal: wp("4%"),
         }}
       >
         <TouchableOpacity
@@ -47,27 +54,26 @@ const index: React.FC = () => {
           <View style={styles.card}>
             <Text
               style={{
-                fontSize: 18,
+                fontSize: wp(fontSizes[22]),
                 textAlign: "center",
-                fontFamily: fontFamily.Avenir_900,
-                lineHeight: 22,
+                fontFamily: fontFamily.Avenir_800,
+                //lineHeight: 22,
               }}
             >
-              Blogs Family
+              Bloggs Family
             </Text>
             <TouchableOpacity
               style={{
-                backgroundColor: color.paleGreen,
-                borderRadius: 5,
-                marginTop: 5,
+                backgroundColor: "#DCF4ED",
+                borderRadius: 8,
               }}
             >
               <Text
                 style={{
-                  paddingHorizontal: spacing.sm,
-                  paddingVertical: 5,
+                  paddingHorizontal: "2%",
+                  paddingVertical: "1%",
                   fontFamily: fontFamily.Avenir_500,
-                  fontSize: 11,
+                  fontSize: wp(fontSizes[12]),
                 }}
               >
                 11 Members
@@ -77,7 +83,6 @@ const index: React.FC = () => {
           <View style={{ flex: 3 }}>
             <ImageBackground
               source={require("./../../../assets/images/group.png")}
-              //resizeMethod="cover"
               style={{
                 flex: 1,
                 borderRadius: fontSizes.sm,
@@ -96,29 +101,29 @@ const index: React.FC = () => {
       </View>
       <View
         style={{
-          flex: 6.5,
-          marginTop: spacing.lg,
+          flex: 5.5,
+          justifyContent: "center",
+          gap: 20,
+          paddingHorizontal: wp("4%"),
         }}
       >
         <Text
           style={{
-            fontSize: fontSizes.xl,
+            fontSize: wp(fontSizes[32]),
             textAlign: "center",
             fontFamily: fontFamily.DMSans_700,
-            marginVertical: 15,
           }}
         >
           No groups Yet...
         </Text>
         <View
           style={{
-            paddingHorizontal: spacing.xxl,
-            marginVertical: 15,
+            paddingHorizontal: wp("8%"),
           }}
         >
           <Text
             style={{
-              fontSize: 20,
+              fontSize: wp(fontSizes[24]),
               lineHeight: 27,
               textAlign: "center",
               fontFamily: fontFamily.DMSans_500,
@@ -131,24 +136,36 @@ const index: React.FC = () => {
         <TouchableOpacity
           onPress={() => router.navigate("/CreateGroup")}
           style={{
-            backgroundColor: color.green,
-            borderRadius: 5,
+            backgroundColor: color.blueGreen,
+            borderRadius: 8,
           }}
         >
           <Text
             style={{
-              fontSize: 18,
+              fontSize: wp(fontSizes[24]),
               fontFamily: fontFamily.DMSans_700,
               textAlign: "center",
-              paddingVertical: spacing.md,
+              paddingVertical: "4%",
               color: color.white,
-              lineHeight: 22,
+              //lineHeight: 22,
             }}
           >
             Create a Group
           </Text>
         </TouchableOpacity>
       </View>
+      <View style={{ flex: 0.9 }}></View>
+      <ShadowedView
+        style={{
+          flex: 0.1,
+          ...shadowStyle({
+            color: color.grey,
+            opacity: 0.3,
+            radius: 30,
+            offset: [0, 1],
+          }),
+        }}
+      ></ShadowedView>
     </SafeAreaView>
   );
 };
@@ -157,18 +174,19 @@ export default index;
 
 const styles = StyleSheet.create({
   heading: {
-    fontSize: fontSizes.lg,
+    fontSize: wp(fontSizes[26]),
+    //lineHeight: 36,
     fontFamily: fontFamily.DMSans_700,
     color: color.black,
-    marginLeft: spacing.md,
   },
   card: {
     flex: 7,
     justifyContent: "center",
     alignItems: "flex-start",
-    paddingLeft: 15,
+    paddingLeft: "5%",
     borderRightWidth: 5,
     borderRightColor: color.white,
     borderStyle: "dashed",
+    gap: 10,
   },
 });

@@ -1,0 +1,11 @@
+{
+  "AppSyncApiName": "wishfully",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthCognitoUserPoolId": {
+    "Fn::GetAtt": [
+      "authwishfully1d4d9adf",
+      "Outputs.UserPoolId"
+    ]
+  }
+}

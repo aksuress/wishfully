@@ -2,7 +2,11 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 import WishList from "./WishList";
 import Feed from "./Feed";
 import { color, fontFamily } from "../../../../utils/Color";
-
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
+import { fontSizes } from "@/utils/sizes";
 const Tab = createMaterialTopTabNavigator();
 
 const Topbar: React.FC = () => {
@@ -11,9 +15,9 @@ const Topbar: React.FC = () => {
       screenOptions={{
         tabBarLabelStyle: {
           textTransform: "capitalize",
-          fontSize: 18,
+          fontSize: wp(fontSizes[22]),
           fontFamily: fontFamily.DMSans_500,
-          lineHeight: 27,
+          //lineHeight: 27,
         },
 
         tabBarActiveTintColor: color.green, // Color when tab is active
@@ -24,7 +28,7 @@ const Topbar: React.FC = () => {
         },
       }}
     >
-      <Tab.Screen name="Wishlist" component={WishList} />
+      <Tab.Screen name="Wishlists" component={WishList} />
       <Tab.Screen name="Feed" component={Feed} />
     </Tab.Navigator>
   );

@@ -11,8 +11,12 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Calendar } from "react-native-calendars";
 import { useRouter } from "expo-router";
 import { color, fontFamily } from "../utils/Color";
-import { spacing } from "../utils/sizes";
-
+import { spacing, fontSizes } from "../utils/sizes";
+import { ShadowedView, shadowStyle } from "react-native-fast-shadow";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 const CreateEvent2: React.FC = () => {
   const router = useRouter();
   const [selected, setSelected] = useState("");
@@ -31,7 +35,7 @@ const CreateEvent2: React.FC = () => {
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "space-between",
-          paddingHorizontal: 15,
+          paddingHorizontal: "5%",
         }}
       >
         <Text style={styles.heading}>Create Event</Text>
@@ -41,7 +45,7 @@ const CreateEvent2: React.FC = () => {
             style={{
               color: color.red,
               fontFamily: fontFamily.DMSans_700,
-              fontSize: 14,
+              fontSize: wp(fontSizes[20]),
             }}
           >
             Cancel
@@ -54,30 +58,36 @@ const CreateEvent2: React.FC = () => {
           flexDirection: "row",
         }}
       >
-        <View style={{ flex: 2, backgroundColor: color.green }}></View>
+        <View
+          style={{
+            flex: 2,
+            backgroundColor: color.green,
+            borderTopRightRadius: 4,
+            borderBottomEndRadius: 4,
+          }}
+        ></View>
         <View style={{ flex: 8, backgroundColor: color.progressGreen }}></View>
       </View>
       <View
         style={{
-          flex: 8.2,
+          flex: 7,
           alignItems: "center",
           justifyContent: "center",
-          paddingHorizontal: 10,
+          paddingHorizontal: "4%",
         }}
       >
         <View
           style={{
             flex: 1.5,
             alignSelf: "flex-start",
-            justifyContent: "center",
+            justifyContent: "flex-end",
           }}
         >
           <Text
             style={{
-              fontSize: 32,
+              fontSize: wp(fontSizes[32]),
               fontFamily: fontFamily.DMSans_700,
-              lineHeight: 48,
-              textAlign: "left",
+              //lineHeight: 48,
             }}
           >
             When is the event?
@@ -85,7 +95,7 @@ const CreateEvent2: React.FC = () => {
         </View>
         <View
           style={{
-            flex: 7.5,
+            flex: 7,
             width: "100%",
             justifyContent: "center",
           }}
@@ -96,24 +106,21 @@ const CreateEvent2: React.FC = () => {
             }}
             style={{
               width: "100%",
-              transform: [{ scale: 1 }],
+              height: "100%",
               backgroundColor: color.lightBlue,
-              elevation: 5,
             }}
           />
         </View>
         <View
           style={{
-            flex: 1.5,
+            flex: 1,
             flexDirection: "row",
             alignItems: "center",
             justifyContent: "space-around",
             width: "90%",
-            padding: 10,
-            borderRadius: 10,
+            padding: "2%",
+            borderRadius: 32,
             backgroundColor: color.pureWhite,
-            marginVertical: 12,
-            elevation: 5,
           }}
         >
           <View
@@ -121,9 +128,9 @@ const CreateEvent2: React.FC = () => {
               flexDirection: "row",
               alignItems: "center",
               justifyContent: "space-evenly",
-              borderRadius: 15,
+              borderRadius: 8,
               backgroundColor: color.lightBlue,
-              paddingHorizontal: 10,
+              padding: "3%",
             }}
           >
             <Switch
@@ -135,25 +142,30 @@ const CreateEvent2: React.FC = () => {
               style={styles.switch}
             />
             <Text
-              styles={{
-                lineHeight: 20.83,
-                fontSize: 16,
+              style={{
+                //lineHeight: 20.83,
+                fontSize: wp(fontSizes[18]),
                 fontFamily: fontFamily.DMSans_500,
               }}
             >
               Time
             </Text>
           </View>
-          <View style={{ backgroundColor: color.lightBlue, borderRadius: 15 }}>
+          <View
+            style={{
+              backgroundColor: color.lightBlue,
+              borderRadius: 8,
+            }}
+          >
             <Text
               style={{
-                lineHeight: 28,
-                fontSize: 22,
-                fontFamily: fontFamily.DMSans_400,
-                padding: 6,
+                //lineHeight: 28,
+                fontSize: wp(fontSizes[24]),
+                fontFamily: fontFamily.DMSans_500,
+                padding: "3%",
               }}
             >
-              07.00
+              07:00
             </Text>
           </View>
           <View
@@ -162,25 +174,27 @@ const CreateEvent2: React.FC = () => {
               alignItems: "center",
               justifyContent: "center",
               backgroundColor: color.lightBlue,
-              padding: 6,
+              padding: "1.5%",
+
+              borderRadius: 8,
             }}
           >
             <Text
               style={{
-                lineHeight: 20,
-                fontSize: 13,
+                //lineHeight: 20,
+                fontSize: wp(fontSizes[13]),
                 fontFamily: fontFamily.DMSans_500,
-                padding: 5,
+                padding: "2.5%",
               }}
             >
               AM
             </Text>
             <Text
               style={{
-                lineHeight: 20,
-                fontSize: 13,
+                //lineHeight: 20,
+                fontSize: wp(fontSizes[13]),
                 fontFamily: fontFamily.DMSans_500,
-                padding: 6,
+                padding: "2.5%",
                 backgroundColor: color.white,
                 elevation: 5,
               }}
@@ -189,42 +203,39 @@ const CreateEvent2: React.FC = () => {
             </Text>
           </View>
         </View>
+        <View style={{ flex: 0.5 }}></View>
       </View>
-      <View
+      <ShadowedView
         style={{
           flex: 1.3,
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "space-evenly",
-          backgroundColor: "#FFFFFF",
-          ...Platform.select({
-            ios: {
-              shadowColor: color.black,
-              shadowOffset: { width: 0, height: -3 }, // Only top shadow
-              shadowOpacity: 0.5,
-              shadowRadius: 3,
-            },
-            android: {
-              elevation: 25,
-            },
+          backgroundColor: color.white,
+          ...shadowStyle({
+            color: color.grey,
+            opacity: 0.25,
+            radius: 30,
+            offset: [0, -2],
           }),
         }}
       >
         <TouchableOpacity
           style={{
-            borderWidth: 1,
+            borderWidth: 1.5,
             borderColor: color.green,
             borderRadius: 4,
             flex: 2,
-            marginHorizontal: 15,
-            padding: spacing.md,
+            marginHorizontal: "5%",
+            paddingVertical: "4%",
+            paddingHorizontal: "2%",
           }}
           onPress={() => router.back()}
         >
           <Text
             style={{
               color: color.green,
-              fontSize: 18,
+              fontSize: wp(fontSizes[22]),
               fontFamily: fontFamily.Avenir_700,
               textAlign: "center",
             }}
@@ -234,20 +245,20 @@ const CreateEvent2: React.FC = () => {
         </TouchableOpacity>
         <TouchableOpacity
           style={{
-            backgroundColor: color.green,
+            backgroundColor: color.blueGreen,
             flex: 3,
             borderWidth: 1,
-            borderColor: color.green,
             borderRadius: 4,
-            marginRight: 15,
-            padding: spacing.md,
+            borderColor: color.green,
+            marginRight: "5%",
+            padding: "4%",
           }}
           onPress={() => router.navigate("CreateEvent3")}
         >
           <Text
             style={{
               color: color.white,
-              fontSize: 18,
+              fontSize: wp(fontSizes[22]),
               fontFamily: fontFamily.Avenir_700,
               textAlign: "center",
             }}
@@ -255,7 +266,7 @@ const CreateEvent2: React.FC = () => {
             Next
           </Text>
         </TouchableOpacity>
-      </View>
+      </ShadowedView>
     </SafeAreaView>
   );
 };
@@ -264,9 +275,10 @@ export default CreateEvent2;
 
 const styles = StyleSheet.create({
   heading: {
-    fontSize: 24,
-    lineHeight: 36,
+    fontSize: wp(fontSizes[26]),
+    //lineHeight: 36,
     fontFamily: fontFamily.DMSans_700,
+    color: color.black,
   },
 
   switch: {

@@ -2,11 +2,10 @@ import {
   Platform,
   StyleSheet,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
   Switch,
-  ImageBackground,
+  Image,
   Dimensions,
 } from "react-native";
 import React, { useState } from "react";
@@ -15,6 +14,12 @@ import { Feather, Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { color, fontFamily } from "../utils/Color";
 import { spacing, fontSizes } from "../utils/sizes";
+import { TextInput } from "react-native-element-textinput";
+import { ShadowedView, shadowStyle } from "react-native-fast-shadow";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
 const EventInvite: React.FC = () => {
   const router = useRouter();
@@ -24,7 +29,7 @@ const EventInvite: React.FC = () => {
   const windowWidth = Dimensions.get("window").width;
 
   // Calculate responsive image dimension
-  const imageDimension = windowWidth / 5.5;
+  const imageDimension = windowWidth / 6.5;
 
   return (
     <SafeAreaView
@@ -39,7 +44,7 @@ const EventInvite: React.FC = () => {
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "space-between",
-          paddingHorizontal: 15,
+          paddingHorizontal: "5%",
         }}
       >
         <Text style={styles.heading}>Invite Guests</Text>
@@ -49,7 +54,7 @@ const EventInvite: React.FC = () => {
             style={{
               color: color.red,
               fontFamily: fontFamily.DMSans_700,
-              fontSize: 14,
+              fontSize: wp(fontSizes[20]),
             }}
           >
             Cancel
@@ -62,130 +67,110 @@ const EventInvite: React.FC = () => {
           flexDirection: "row",
         }}
       >
-        <View style={{ flex: 3, backgroundColor: color.green }}></View>
-        <View style={{ flex: 7, backgroundColor: color.progressGreen }}></View>
+        <View
+          style={{
+            flex: 2,
+            backgroundColor: color.green,
+            borderTopRightRadius: 4,
+            borderBottomEndRadius: 4,
+          }}
+        ></View>
+        <View style={{ flex: 8, backgroundColor: color.progressGreen }}></View>
       </View>
       <View
         style={{
-          flex: 7.8,
+          flex: 7.5,
           alignItems: "center",
-          justifyContent: "center",
-          paddingHorizontal: 15,
-          gap: 28,
+          justifyContent: "space-evenly",
+          paddingHorizontal: "5%",
         }}
       >
         <View
-          style={{
-            flexDirection: "row",
-          }}
+          style={{ gap: 35, justifyContent: "center", alignItems: "center" }}
         >
-          <View
+          <Text
             style={{
-              flex: 9,
+              fontSize: wp(fontSizes[32]),
+              fontFamily: fontFamily.DMSans_700,
+              //lineHeight: 48,
+              textAlign: "left",
             }}
           >
+            Various ways to invite your guests
+          </Text>
+
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "center",
+              alignItems: "center",
+              backgroundColor: color.white,
+              borderRadius: 8,
+              width: wp("70%"),
+              padding: "4%",
+            }}
+          >
+            <Switch
+              trackColor={{ false: "#C4EBD6", true: "#C4EBD6" }}
+              thumbColor={isEnabled ? "#14AE5C" : "#14AE5C"}
+              ios_backgroundColor="#F7FBFD"
+              onValueChange={toggleSwitch}
+              value={isEnabled}
+              style={styles.switch}
+            />
             <Text
               style={{
-                fontSize: 32,
-                fontFamily: fontFamily.DMSans_700,
-                lineHeight: 48,
-                textAlign: "left",
+                fontFamily: fontFamily.DMSans_500,
+                fontSize: wp(fontSizes[13]),
               }}
             >
-              Various ways to invite your guests
+              Confirm guests before they join
             </Text>
           </View>
-          <View
-            style={{
-              flex: 1,
-            }}
-          ></View>
         </View>
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "center",
-            alignItems: "center",
-            backgroundColor: color.white,
-            borderRadius: 8,
-            elevation: 5,
-            width: "80%",
-          }}
-        >
-          <Switch
-            trackColor={{ false: "#C4EBD6", true: "#C4EBD6" }}
-            thumbColor={isEnabled ? "#14AE5C" : "#14AE5C"}
-            ios_backgroundColor="#F7FBFD"
-            onValueChange={toggleSwitch}
-            value={isEnabled}
-            style={styles.switch}
-          />
+
+        <View style={{ gap: 5 }}>
           <Text
             style={{
               fontFamily: fontFamily.DMSans_500,
-              fontSize: 14,
-            }}
-          >
-            Confirm guests before they join
-          </Text>
-        </View>
-        <View>
-          <Text
-            style={{
-              fontFamily: fontFamily.DMSans_500,
-              fontSize: 14,
+              fontSize: wp(fontSizes[13]),
               lineHeight: 22,
               textAlign: "left",
             }}
           >
             Add guests from groups you are in
           </Text>
-          <View
-            style={{
-              width: "100%",
-              flexDirection: "row",
-              backgroundColor: color.white,
-              borderRadius: 4,
-              borderWidth: 0.5,
-              borderColor: color.borderBlue,
-              padding: 5,
-              elevation: 2,
-              justifyContent: "space-between",
-              alignItems: "center",
-              elevation: 5,
-            }}
-          >
-            <TextInput
-              placeholderTextColor={color.black}
-              placeholder="Search..."
-              style={{
-                flex: 0.9,
-              }}
-            />
-            <Feather
-              name="search"
-              size={24}
-              color={color.black}
-              style={{ flex: 0.1 }}
-            />
-          </View>
+
+          <TextInput
+            style={styles.Inputstyle}
+            placeholderStyle={{ fontSize: wp(fontSizes[10]) }}
+            placeholderTextColor={color.black}
+            placeholder="Search..."
+            renderRightIcon={() => (
+              <Feather
+                name="search"
+                size={wp(fontSizes[26])}
+                color={color.black}
+              />
+            )}
+            fontFamily={fontFamily.DMSans_400}
+          />
         </View>
-        <View style={{ width: "100%" }}>
+        <View style={{ width: "100%", gap: 5 }}>
           <View
             style={{
               backgroundColor: color.white,
               borderRadius: 4,
-              borderWidth: 1,
+              borderWidth: 3,
               borderColor: color.borderBlue,
-              padding: 10,
-              elevation: 2,
+              padding: "4%",
             }}
           >
             <Text
               style={{
                 fontFamily: fontFamily.DMSans_700,
-                fontSize: 18,
-                lineHeight: 22,
+                fontSize: wp(fontSizes[22]),
+                //lineHeight: 22,
                 textAlign: "center",
                 color: color.blueGreen,
               }}
@@ -196,8 +181,8 @@ const EventInvite: React.FC = () => {
           <Text
             style={{
               fontFamily: fontFamily.DMSans_400,
-              fontSize: 12,
-              lineHeight: 22,
+              fontSize: wp(fontSizes[12]),
+              //lineHeight: 22,
               textAlign: "center",
             }}
           >
@@ -208,44 +193,28 @@ const EventInvite: React.FC = () => {
           <Text
             style={{
               fontFamily: fontFamily.DMSans_500,
-              fontSize: 14,
-              lineHeight: 22,
+              fontSize: wp(fontSizes[13]),
+              //lineHeight: 22,
               textAlign: "left",
             }}
           >
             Share this link
           </Text>
-          <View
-            style={{
-              width: "100%",
-              flexDirection: "row",
-              backgroundColor: color.white,
-              borderRadius: 4,
-              borderWidth: 0.5,
-              borderColor: color.borderBlue,
-              padding: 5,
-              elevation: 2,
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
-            <TextInput
-              style={{
-                flex: 0.9,
-              }}
-            />
-            <Ionicons
-              name="copy-outline"
-              size={16}
-              color={color.green}
-              style={{ flex: 0.1 }}
-            />
-          </View>
+          <TextInput
+            style={styles.Inputstyle}
+            renderRightIcon={() => (
+              <Ionicons
+                name="copy-outline"
+                size={wp(fontSizes[26])}
+                color={color.green}
+              />
+            )}
+          />
         </View>
         <View
           style={{
             flexDirection: "row",
-            justifyContent: "space-evenly",
+            justifyContent: "space-between",
             alignItems: "center",
             width: "100%",
           }}
@@ -254,19 +223,24 @@ const EventInvite: React.FC = () => {
             style={{
               height: imageDimension,
               width: imageDimension,
+              gap: 5,
             }}
           >
-            <ImageBackground
-              source={require("./../assets/images/imessage.png")}
-              style={{ flex: 1 }}
-              resizeMode="cover"
+            <Image
+              source={require("./../assets/images/imessageicon.png")}
+              style={{
+                height: imageDimension,
+                width: imageDimension,
+              }}
+              resizeMode="stretch"
+              resizeMethod="scale"
             />
             <Text
               style={{
-                fontSize: 11,
+                fontSize: wp(fontSizes[10]),
                 textAlign: "center",
-                lineHeight: 13,
-                fontFamily: fontFamily.Avenir_400,
+                //lineHeight: 13,
+                fontFamily: fontFamily.Avenir_500,
               }}
             >
               imessage
@@ -276,19 +250,24 @@ const EventInvite: React.FC = () => {
             style={{
               height: imageDimension,
               width: imageDimension,
+              gap: 5,
             }}
           >
-            <ImageBackground
-              source={require("./../assets/images/messenger.png")}
-              style={{ flex: 1 }}
-              resizeMode="cover"
+            <Image
+              source={require("./../assets/images/messengericon.png")}
+              style={{
+                height: imageDimension,
+                width: imageDimension,
+              }}
+              resizeMode="stretch"
+              resizeMethod="scale"
             />
             <Text
               style={{
-                fontSize: 11,
+                fontSize: wp(fontSizes[10]),
                 textAlign: "center",
-                lineHeight: 13,
-                fontFamily: fontFamily.Avenir_400,
+                //lineHeight: 13,
+                fontFamily: fontFamily.Avenir_500,
               }}
             >
               Messenger
@@ -298,19 +277,24 @@ const EventInvite: React.FC = () => {
             style={{
               height: imageDimension,
               width: imageDimension,
+              gap: 5,
             }}
           >
-            <ImageBackground
-              source={require("./../assets/images/whatsapp.png")}
-              style={{ flex: 1 }}
-              resizeMode="cover"
+            <Image
+              source={require("./../assets/images/whatsappicon.png")}
+              style={{
+                height: imageDimension,
+                width: imageDimension,
+              }}
+              resizeMode="contain"
+              resizeMethod="scale"
             />
             <Text
               style={{
-                fontSize: 11,
+                fontSize: wp(fontSizes[10]),
                 textAlign: "center",
-                lineHeight: 13,
-                fontFamily: fontFamily.Avenir_400,
+                //lineHeight: 13,
+                fontFamily: fontFamily.Avenir_500,
               }}
             >
               WhatsApp
@@ -320,19 +304,25 @@ const EventInvite: React.FC = () => {
             style={{
               height: imageDimension,
               width: imageDimension,
+              gap: 5,
+              backgroundColor: color.white,
             }}
           >
-            <ImageBackground
-              source={require("./../assets/images/snapchat.png")}
-              style={{ flex: 1 }}
-              resizeMode="contain"
+            <Image
+              source={require("./../assets/images/snapicon.png")}
+              style={{
+                height: imageDimension,
+                width: imageDimension,
+              }}
+              resizeMode="cover"
+              resizeMethod="scale"
             />
             <Text
               style={{
-                fontSize: 11,
+                fontSize: wp(fontSizes[10]),
                 textAlign: "center",
-                lineHeight: 13,
-                fontFamily: fontFamily.Avenir_400,
+                //lineHeight: 13,
+                fontFamily: fontFamily.Avenir_500,
               }}
             >
               SnapChat
@@ -340,41 +330,37 @@ const EventInvite: React.FC = () => {
           </View>
         </View>
       </View>
-      <View
+      <ShadowedView
         style={{
           flex: 1.3,
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "space-evenly",
           backgroundColor: color.white,
-          ...Platform.select({
-            ios: {
-              shadowColor: color.black,
-              shadowOffset: { width: 0, height: -3 }, // Only top shadow
-              shadowOpacity: 0.5,
-              shadowRadius: 3,
-            },
-            android: {
-              elevation: 25,
-            },
+          ...shadowStyle({
+            color: color.grey,
+            opacity: 0.3,
+            radius: 30,
+            offset: [0, -2],
           }),
         }}
       >
         <TouchableOpacity
           style={{
-            borderWidth: 1,
+            borderWidth: 1.5,
             borderColor: color.green,
             borderRadius: 4,
             flex: 2,
-            marginHorizontal: 15,
-            padding: spacing.md,
+            marginHorizontal: "5%",
+            paddingVertical: "4%",
+            paddingHorizontal: "2%",
           }}
           onPress={() => router.back()}
         >
           <Text
             style={{
               color: color.green,
-              fontSize: 18,
+              fontSize: wp(fontSizes[22]),
               fontFamily: fontFamily.Avenir_700,
               textAlign: "center",
             }}
@@ -384,20 +370,20 @@ const EventInvite: React.FC = () => {
         </TouchableOpacity>
         <TouchableOpacity
           style={{
-            backgroundColor: color.green,
+            backgroundColor: color.blueGreen,
             flex: 3,
             borderWidth: 1,
-            borderColor: color.green,
             borderRadius: 4,
-            marginRight: 15,
-            padding: spacing.md,
+            borderColor: color.green,
+            marginRight: "5%",
+            padding: "4%",
           }}
           onPress={() => router.navigate("(Event)")}
         >
           <Text
             style={{
               color: color.white,
-              fontSize: 18,
+              fontSize: wp(fontSizes[22]),
               fontFamily: fontFamily.Avenir_700,
               textAlign: "center",
             }}
@@ -405,7 +391,7 @@ const EventInvite: React.FC = () => {
             Create Event
           </Text>
         </TouchableOpacity>
-      </View>
+      </ShadowedView>
     </SafeAreaView>
   );
 };
@@ -414,13 +400,23 @@ export default EventInvite;
 
 const styles = StyleSheet.create({
   heading: {
-    fontSize: 24,
-    lineHeight: 36,
+    fontSize: wp(fontSizes[26]),
+    //lineHeight: 36,
     fontFamily: fontFamily.DMSans_700,
+    color: color.black,
   },
 
   switch: {
     transform: [{ scale: 0.6 }],
     backgroundColor: "#F7FBFD",
+  },
+  Inputstyle: {
+    backgroundColor: color.white,
+    borderColor: color.borderBlue,
+    borderWidth: 1,
+    borderRadius: spacing.sm,
+    paddingHorizontal: "5%",
+    width: "100%",
+    //height: hp("6%"),
   },
 });

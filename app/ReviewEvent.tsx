@@ -2,7 +2,6 @@ import {
   Platform,
   StyleSheet,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
   Switch,
@@ -14,6 +13,12 @@ import { MaterialCommunityIcons, Octicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { color, fontFamily } from "../utils/Color";
 import { spacing, fontSizes } from "../utils/sizes";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
+import { ShadowedView, shadowStyle } from "react-native-fast-shadow";
+import { TextInput } from "react-native-element-textinput";
 
 const ReviewEvent: React.FC = () => {
   const router = useRouter();
@@ -31,7 +36,7 @@ const ReviewEvent: React.FC = () => {
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "space-between",
-          paddingHorizontal: 15,
+          paddingHorizontal: "5%",
         }}
       >
         <Text style={styles.heading}>Review Event</Text>
@@ -41,7 +46,7 @@ const ReviewEvent: React.FC = () => {
             style={{
               color: color.red,
               fontFamily: fontFamily.DMSans_700,
-              fontSize: 14,
+              fontSize: wp(fontSizes[20]),
             }}
           >
             Cancel
@@ -54,18 +59,25 @@ const ReviewEvent: React.FC = () => {
           flexDirection: "row",
         }}
       >
-        <View style={{ flex: 3, backgroundColor: color.green }}></View>
-        <View style={{ flex: 7, backgroundColor: color.progressGreen }}></View>
+        <View
+          style={{
+            flex: 5,
+            backgroundColor: color.green,
+            borderTopRightRadius: 4,
+            borderBottomEndRadius: 4,
+          }}
+        ></View>
+        <View style={{ flex: 5, backgroundColor: color.progressGreen }}></View>
       </View>
       <View
         style={{
           flex: 8,
-          paddingHorizontal: 15,
+          paddingHorizontal: "5%",
         }}
       >
         <View
           style={{
-            flex: 3,
+            flex: 2,
             justifyContent: "center",
             alignItems: "flex-start",
           }}
@@ -73,14 +85,14 @@ const ReviewEvent: React.FC = () => {
           <Text
             style={{
               fontFamily: fontFamily.DMSans_700,
-              fontSize: 32,
-              lineHeight: 48,
+              fontSize: wp(fontSizes[32]),
+              //lineHeight: 48,
             }}
           >
             Here’s an overview of your event
           </Text>
         </View>
-        <View style={{ flex: 7 }}>
+        <View style={{ flex: 8 }}>
           <ScrollView>
             <View
               style={{
@@ -88,22 +100,22 @@ const ReviewEvent: React.FC = () => {
                 justifyContent: "space-between",
                 alignItems: "center",
                 backgroundColor: color.white,
-                borderRadius: 5,
-                elevation: 2,
-                padding: 8,
-                marginBottom: 15,
+                borderRadius: 4,
+                padding: "3%",
+                marginBottom: "5%",
               }}
             >
               <View
                 style={{
                   justifyContent: "space-between",
+                  gap: 5,
                 }}
               >
                 <Text
                   style={{
                     fontFamily: fontFamily.DMSans_500,
-                    fontSize: 10,
-                    lineHeight: 15,
+                    fontSize: wp(fontSizes[10]),
+                    //lineHeight: 15,
                   }}
                 >
                   Name
@@ -111,8 +123,8 @@ const ReviewEvent: React.FC = () => {
                 <Text
                   style={{
                     fontFamily: fontFamily.DMSans_700,
-                    fontSize: 14,
-                    lineHeight: 16.52,
+                    fontSize: wp(fontSizes[13]),
+                    //lineHeight: 16.52,
                   }}
                 >
                   Event name
@@ -120,7 +132,7 @@ const ReviewEvent: React.FC = () => {
               </View>
               <MaterialCommunityIcons
                 name="pencil"
-                size={16}
+                size={wp(fontSizes[18])}
                 color={color.green}
               />
             </View>
@@ -130,22 +142,22 @@ const ReviewEvent: React.FC = () => {
                 justifyContent: "space-between",
                 alignItems: "center",
                 backgroundColor: color.white,
-                borderRadius: 5,
-                elevation: 2,
-                padding: 8,
-                marginBottom: 15,
+                borderRadius: 4,
+                padding: "3%",
+                marginBottom: "5%",
               }}
             >
               <View
                 style={{
                   justifyContent: "space-between",
+                  gap: 5,
                 }}
               >
                 <Text
                   style={{
                     fontFamily: fontFamily.DMSans_500,
-                    fontSize: 10,
-                    lineHeight: 15,
+                    fontSize: wp(fontSizes[10]),
+                    //lineHeight: 15,
                   }}
                 >
                   Date
@@ -153,8 +165,8 @@ const ReviewEvent: React.FC = () => {
                 <Text
                   style={{
                     fontFamily: fontFamily.DMSans_700,
-                    fontSize: 14,
-                    lineHeight: 16.52,
+                    fontSize: wp(fontSizes[13]),
+                    //lineHeight: 16.52,
                   }}
                 >
                   Event name
@@ -162,7 +174,7 @@ const ReviewEvent: React.FC = () => {
               </View>
               <MaterialCommunityIcons
                 name="pencil"
-                size={16}
+                size={wp(fontSizes[18])}
                 color={color.green}
               />
             </View>
@@ -172,22 +184,22 @@ const ReviewEvent: React.FC = () => {
                 justifyContent: "space-between",
                 alignItems: "center",
                 backgroundColor: color.white,
-                borderRadius: 5,
-                elevation: 2,
-                padding: 8,
-                marginBottom: 15,
+                borderRadius: 4,
+                padding: "3%",
+                marginBottom: "5%",
               }}
             >
               <View
                 style={{
                   justifyContent: "space-between",
+                  gap: 5,
                 }}
               >
                 <Text
                   style={{
                     fontFamily: fontFamily.DMSans_500,
-                    fontSize: 10,
-                    lineHeight: 15,
+                    fontSize: wp(fontSizes[10]),
+                    //lineHeight: 15,
                   }}
                 >
                   Location
@@ -195,8 +207,8 @@ const ReviewEvent: React.FC = () => {
                 <Text
                   style={{
                     fontFamily: fontFamily.DMSans_700,
-                    fontSize: 14,
-                    lineHeight: 16.52,
+                    fontSize: wp(fontSizes[13]),
+                    //lineHeight: 16.52,
                   }}
                 >
                   Event name
@@ -204,7 +216,7 @@ const ReviewEvent: React.FC = () => {
               </View>
               <MaterialCommunityIcons
                 name="pencil"
-                size={16}
+                size={wp(fontSizes[18])}
                 color={color.green}
               />
             </View>
@@ -214,22 +226,22 @@ const ReviewEvent: React.FC = () => {
                 justifyContent: "space-between",
                 alignItems: "center",
                 backgroundColor: color.white,
-                borderRadius: 5,
-                elevation: 2,
-                padding: 8,
-                marginBottom: 15,
+                borderRadius: 4,
+                padding: "3%",
+                marginBottom: "5%",
               }}
             >
               <View
                 style={{
                   justifyContent: "space-between",
+                  gap: 5,
                 }}
               >
                 <Text
                   style={{
                     fontFamily: fontFamily.DMSans_500,
-                    fontSize: 10,
-                    lineHeight: 15,
+                    fontSize: wp(fontSizes[10]),
+                    //lineHeight: 15,
                   }}
                 >
                   Description
@@ -237,8 +249,8 @@ const ReviewEvent: React.FC = () => {
                 <Text
                   style={{
                     fontFamily: fontFamily.DMSans_700,
-                    fontSize: 14,
-                    lineHeight: 16.52,
+                    fontSize: wp(fontSizes[13]),
+                    //lineHeight: 16.52,
                   }}
                 >
                   Event name
@@ -246,32 +258,33 @@ const ReviewEvent: React.FC = () => {
               </View>
               <MaterialCommunityIcons
                 name="pencil"
-                size={16}
+                size={wp(fontSizes[18])}
                 color={color.green}
               />
             </View>
+
             <View
               style={{
                 flexDirection: "row",
                 justifyContent: "space-between",
                 alignItems: "center",
                 backgroundColor: color.white,
-                borderRadius: 5,
-                elevation: 2,
-                padding: 8,
-                marginBottom: 15,
+                borderRadius: 4,
+                padding: "3%",
+                marginBottom: "5%",
               }}
             >
               <View
                 style={{
                   justifyContent: "space-between",
+                  gap: 2,
                 }}
               >
                 <Text
                   style={{
                     fontFamily: fontFamily.DMSans_700,
-                    fontSize: 14,
-                    lineHeight: 16.52,
+                    fontSize: wp(fontSizes[13]),
+                    //lineHeight: 16.52,
                   }}
                 >
                   Please select your meal preference
@@ -281,15 +294,20 @@ const ReviewEvent: React.FC = () => {
                     flexDirection: "row",
                     justifyContent: "flex-start",
                     alignItems: "center",
+                    gap: 10,
                   }}
                 >
-                  <Octicons name="dot-fill" size={24} color={color.black} />
+                  <Octicons
+                    name="dot-fill"
+                    size={wp(fontSizes[24])}
+                    color={color.black}
+                  />
                   <Text
                     style={{
                       fontFamily: fontFamily.DMSans_500,
-                      fontSize: 14,
-                      lineHeight: 14,
-                      marginLeft: 10,
+                      fontSize: wp(fontSizes[13]),
+                      //lineHeight: 14,
+                      //marginLeft: 10,
                     }}
                   >
                     Lamb Shank
@@ -300,15 +318,19 @@ const ReviewEvent: React.FC = () => {
                     flexDirection: "row",
                     justifyContent: "flex-start",
                     alignItems: "center",
+                    gap: 10,
                   }}
                 >
-                  <Octicons name="dot-fill" size={24} color={color.black} />
+                  <Octicons
+                    name="dot-fill"
+                    size={wp(fontSizes[24])}
+                    color={color.black}
+                  />
                   <Text
                     style={{
                       fontFamily: fontFamily.DMSans_500,
-                      fontSize: 14,
-                      lineHeight: 14,
-                      marginLeft: 10,
+                      fontSize: wp(fontSizes[13]),
+                      // lineHeight: 14,
                     }}
                   >
                     Sheppards Pie
@@ -319,15 +341,19 @@ const ReviewEvent: React.FC = () => {
                     flexDirection: "row",
                     justifyContent: "flex-start",
                     alignItems: "center",
+                    gap: 10,
                   }}
                 >
-                  <Octicons name="dot-fill" size={24} color={color.black} />
+                  <Octicons
+                    name="dot-fill"
+                    size={wp(fontSizes[24])}
+                    color={color.black}
+                  />
                   <Text
                     style={{
                       fontFamily: fontFamily.DMSans_500,
-                      fontSize: 14,
-                      lineHeight: 14,
-                      marginLeft: 10,
+                      fontSize: wp(fontSizes[13]),
+                      //lineHeight: 14,
                     }}
                   >
                     Lasagne
@@ -336,7 +362,7 @@ const ReviewEvent: React.FC = () => {
               </View>
               <MaterialCommunityIcons
                 name="pencil"
-                size={16}
+                size={wp(fontSizes[18])}
                 color={color.green}
               />
             </View>
@@ -346,22 +372,22 @@ const ReviewEvent: React.FC = () => {
                 justifyContent: "space-between",
                 alignItems: "center",
                 backgroundColor: color.white,
-                borderRadius: 5,
-                elevation: 2,
-                padding: 8,
-                marginBottom: 15,
+                borderRadius: 4,
+                padding: "3%",
+                marginBottom: "5%",
               }}
             >
               <View
                 style={{
                   justifyContent: "space-between",
+                  gap: 2,
                 }}
               >
                 <Text
                   style={{
                     fontFamily: fontFamily.DMSans_700,
-                    fontSize: 14,
-                    lineHeight: 16.52,
+                    fontSize: wp(fontSizes[13]),
+                    // lineHeight: 16.52,
                   }}
                 >
                   What song would you like to add to the playlist?
@@ -371,15 +397,19 @@ const ReviewEvent: React.FC = () => {
                     flexDirection: "row",
                     justifyContent: "flex-start",
                     alignItems: "center",
+                    gap: 10,
                   }}
                 >
-                  <Octicons name="dot-fill" size={24} color={color.black} />
+                  <Octicons
+                    name="dot-fill"
+                    size={wp(fontSizes[24])}
+                    color={color.black}
+                  />
                   <Text
                     style={{
                       fontFamily: fontFamily.DMSans_500,
-                      fontSize: 14,
-                      lineHeight: 14,
-                      marginLeft: 10,
+                      fontSize: wp(fontSizes[13]),
+                      //lineHeight: 14,
                     }}
                   >
                     taylor swift
@@ -390,15 +420,19 @@ const ReviewEvent: React.FC = () => {
                     flexDirection: "row",
                     justifyContent: "flex-start",
                     alignItems: "center",
+                    gap: 10,
                   }}
                 >
-                  <Octicons name="dot-fill" size={24} color={color.black} />
+                  <Octicons
+                    name="dot-fill"
+                    size={wp(fontSizes[24])}
+                    color={color.black}
+                  />
                   <Text
                     style={{
                       fontFamily: fontFamily.DMSans_500,
-                      fontSize: 14,
-                      lineHeight: 14,
-                      marginLeft: 10,
+                      fontSize: wp(fontSizes[13]),
+                      //lineHeight: 14,
                     }}
                   >
                     Eminem
@@ -409,65 +443,71 @@ const ReviewEvent: React.FC = () => {
                     flexDirection: "row",
                     justifyContent: "flex-start",
                     alignItems: "center",
+                    gap: 10,
                   }}
                 >
-                  <Octicons name="dot-fill" size={24} color={color.black} />
+                  <Octicons
+                    name="dot-fill"
+                    size={wp(fontSizes[24])}
+                    color={color.black}
+                  />
                   <Text
                     style={{
                       fontFamily: fontFamily.DMSans_500,
-                      fontSize: 14,
-                      lineHeight: 14,
-                      marginLeft: 10,
+                      fontSize: wp(fontSizes[13]),
+                      //lineHeight: 14,
                     }}
                   >
                     Adam Levine
                   </Text>
                 </View>
               </View>
-              <MaterialCommunityIcons
-                name="pencil"
-                size={16}
-                color={color.green}
-              />
+              <View
+                style={{
+                  alignSelf: "center",
+                }}
+              >
+                <MaterialCommunityIcons
+                  name="pencil"
+                  size={wp(fontSizes[18])}
+                  color={color.green}
+                />
+              </View>
             </View>
           </ScrollView>
         </View>
       </View>
-      <View
+      <ShadowedView
         style={{
           flex: 1.3,
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "space-evenly",
           backgroundColor: color.white,
-          ...Platform.select({
-            ios: {
-              shadowColor: color.black,
-              shadowOffset: { width: 0, height: -3 }, // Only top shadow
-              shadowOpacity: 0.5,
-              shadowRadius: 3,
-            },
-            android: {
-              elevation: 25,
-            },
+          ...shadowStyle({
+            color: color.grey,
+            opacity: 0.25,
+            radius: 30,
+            offset: [0, -2],
           }),
         }}
       >
         <TouchableOpacity
           style={{
-            borderWidth: 1,
+            borderWidth: 1.5,
             borderColor: color.green,
             borderRadius: 4,
             flex: 2,
-            marginHorizontal: 15,
-            padding: spacing.md,
+            marginHorizontal: "5%",
+            paddingVertical: "4%",
+            paddingHorizontal: "2%",
           }}
           onPress={() => router.back()}
         >
           <Text
             style={{
               color: color.green,
-              fontSize: 18,
+              fontSize: wp(fontSizes[22]),
               fontFamily: fontFamily.Avenir_700,
               textAlign: "center",
             }}
@@ -477,20 +517,20 @@ const ReviewEvent: React.FC = () => {
         </TouchableOpacity>
         <TouchableOpacity
           style={{
-            backgroundColor: color.green,
+            backgroundColor: color.blueGreen,
             flex: 3,
             borderWidth: 1,
-            borderColor: color.green,
             borderRadius: 4,
-            marginRight: 15,
-            padding: spacing.md,
+            borderColor: color.green,
+            marginRight: "5%",
+            padding: "4%",
           }}
           onPress={() => router.navigate("EventInvite")}
         >
           <Text
             style={{
               color: color.white,
-              fontSize: 18,
+              fontSize: wp(fontSizes[22]),
               fontFamily: fontFamily.Avenir_700,
               textAlign: "center",
             }}
@@ -498,7 +538,7 @@ const ReviewEvent: React.FC = () => {
             Create Event
           </Text>
         </TouchableOpacity>
-      </View>
+      </ShadowedView>
     </SafeAreaView>
   );
 };
@@ -507,8 +547,9 @@ export default ReviewEvent;
 
 const styles = StyleSheet.create({
   heading: {
-    fontSize: 24,
-    lineHeight: 36,
+    fontSize: wp(fontSizes[26]),
+    //lineHeight: 36,
     fontFamily: fontFamily.DMSans_700,
+    color: color.black,
   },
 });

@@ -1,14 +1,24 @@
-import { StyleSheet, Text, View } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  KeyboardAvoidingView,
+} from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { StatusBar } from "expo-status-bar";
+import { LinearGradient } from "expo-linear-gradient";
 import { AntDesign, FontAwesome } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import TopTab from "./tabs/Topbar";
 import { color, fontFamily } from "../../../utils/Color";
-import { spacing } from "../../../utils/sizes";
+import { spacing, fontSizes } from "../../../utils/sizes";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
-const circleSize = 80;
+const circleSize = wp("22%");
 
 const index: React.FC = () => {
   const router = useRouter();
@@ -18,78 +28,101 @@ const index: React.FC = () => {
       <View
         style={{
           flex: 2,
-          paddingHorizontal: 15,
-          paddingTop: 25,
-          backgroundColor: color.lightGreen,
+          paddingHorizontal: "6%",
+          paddingTop: "6%",
+          backgroundColor: color.white,
         }}
       >
         <Text
           style={{
             fontFamily: fontFamily.DMSans_700,
-            fontSize: 24,
+            fontSize: wp(fontSizes[28]),
             lineHeight: 36,
           }}
         >
           Profile
         </Text>
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "flex-start",
-            paddingVertical: spacing.sm,
-          }}
-        >
+        <KeyboardAvoidingView behavior="position" keyboardVerticalOffset={2}>
           <View
             style={{
-              flex: 1,
+              flexDirection: "row",
               alignItems: "center",
-              justifyContent: "center",
-              borderWidth: 2.5,
-              borderColor: color.blueGreen,
-              padding: 20,
-              borderRadius: circleSize / 2,
-              position: "relative",
-              zIndex: 1,
-              marginRight: 15,
-              height: circleSize,
-              width: circleSize,
-              backgroundColor: color.white,
+              justifyContent: "flex-start",
+              paddingVertical: "2%",
             }}
           >
-            <FontAwesome name="user" size={25} color={color.blueGreen} />
-            <AntDesign
-              name="pluscircle"
-              size={20}
-              color={color.blueGreen}
+            <LinearGradient
+              colors={[color.blueGreen, color.navyBlue]}
+              style={[
+                styles.gradient,
+                { borderRadius: circleSize / 2, borderWidth: 3 },
+              ]}
+              start={{ x: 0, y: 0.5 }}
+              end={{ x: 0, y: 1 }}
+            >
+              <View
+                style={[
+                  styles.innerView,
+                  {
+                    height: circleSize,
+                    width: circleSize,
+                    borderRadius: circleSize / 2,
+                    backgroundColor: color.white,
+                  },
+                ]}
+              >
+                <Image
+                  source={require("./../../../assets/images/user.png")}
+                  style={{
+                    height: hp(fontSizes[20]),
+                    aspectRatio: 1,
+                  }}
+                />
+
+                <AntDesign
+                  name="pluscircle"
+                  size={wp(fontSizes[30])}
+                  color={color.blueGreen}
+                  style={{
+                    position: "absolute",
+                    right: -0.5,
+                    top: 0,
+                    backgroundColor: color.white,
+                    zIndex: 2,
+                  }}
+                />
+              </View>
+            </LinearGradient>
+            <View
               style={{
-                position: "absolute",
-                right: -0.5,
-                top: 0,
-                zIndex: 5,
-              }}
-            />
-          </View>
-          <View style={{ flex: 7 }}>
-            <Text
-              style={{
-                fontFamily: fontFamily.DMSans_700,
-                fontSize: 18,
-                lineHeight: 22,
+                flex: 8,
+                gap: 5,
+                height: "100%",
+                justifyContent: "center",
+                paddingLeft: "3%",
               }}
             >
-              Firstname Surname
-            </Text>
-            <Text
-              style={{
-                fontFamily: fontFamily.DMSans_500,
-                fontSize: 14,
-              }}
-            >
-              DD/MM/YYYY
-            </Text>
+              <Text
+                style={{
+                  fontFamily: fontFamily.DMSans_700,
+                  fontSize: wp(fontSizes[25]),
+                  //lineHeight: 26,
+                  // marginBottom: "2%",
+                }}
+              >
+                Firstname Surname
+              </Text>
+              <Text
+                style={{
+                  fontFamily: fontFamily.DMSans_500,
+                  fontSize: wp(fontSizes[22]),
+                }}
+              >
+                DD/MM/YYYY
+              </Text>
+            </View>
           </View>
-        </View>
+        </KeyboardAvoidingView>
       </View>
       <View style={{ flex: 8 }}>
         <TopTab />
@@ -103,5 +136,17 @@ export default index;
 const styles = StyleSheet.create({
   main: {
     flex: 1,
+  },
+  gradient: {
+    position: "relative",
+    padding: "0.5%",
+    borderColor: "transparent",
+    borderWidth: 2.5,
+    zIndex: 1,
+  },
+  innerView: {
+    position: "relative",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });

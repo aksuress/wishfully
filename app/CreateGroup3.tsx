@@ -1,12 +1,10 @@
 import {
-  Platform,
   Switch,
   StyleSheet,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
-  ImageBackground,
+  Image,
   Dimensions,
 } from "react-native";
 import React, { useState } from "react";
@@ -15,6 +13,12 @@ import { color, fontFamily } from "../utils/Color";
 import { spacing, fontSizes } from "../utils/sizes";
 import { Link, useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
+import { ShadowedView, shadowStyle } from "react-native-fast-shadow";
+import { TextInput } from "react-native-element-textinput";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
 const CreateGroup3: React.FC = () => {
   const router = useRouter();
@@ -25,7 +29,7 @@ const CreateGroup3: React.FC = () => {
   const windowWidth = Dimensions.get("window").width;
 
   // Calculate responsive image dimension
-  const imageDimension = windowWidth / 5.5; // Dividing by 4 to get 25% of the screen width
+  const imageDimension = windowWidth / 6; // Dividing by 4 to get 25% of the screen width
 
   return (
     <SafeAreaView
@@ -40,17 +44,17 @@ const CreateGroup3: React.FC = () => {
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "space-between",
-          paddingHorizontal: 15,
+          paddingHorizontal: "5%",
         }}
       >
-        <Text style={styles.heading}>Create Group</Text>
+        <Text style={styles.heading}>‘Groups Name’</Text>
 
         <TouchableOpacity onPress={() => router.back()}>
           <Text
             style={{
               color: color.red,
               fontFamily: fontFamily.DMSans_700,
-              fontSize: 14,
+              fontSize: wp(fontSizes[20]),
             }}
           >
             Cancel
@@ -59,10 +63,10 @@ const CreateGroup3: React.FC = () => {
       </View>
       <View
         style={{
-          flex: 7.7,
+          flex: 6.2,
           alignItems: "center",
           justifyContent: "center",
-          paddingHorizontal: 15,
+          paddingHorizontal: "5%",
           gap: 30,
         }}
       >
@@ -73,12 +77,12 @@ const CreateGroup3: React.FC = () => {
         >
           <View
             style={{
-              flex: 8,
+              flex: 9,
             }}
           >
             <Text
               style={{
-                fontSize: 32,
+                fontSize: wp(fontSizes[32]),
                 fontFamily: fontFamily.DMSans_700,
                 lineHeight: 48,
                 textAlign: "left",
@@ -89,7 +93,7 @@ const CreateGroup3: React.FC = () => {
           </View>
           <View
             style={{
-              flex: 2,
+              flex: 1,
             }}
           ></View>
         </View>
@@ -102,6 +106,7 @@ const CreateGroup3: React.FC = () => {
             justifyContent: "center",
             alignItems: "center",
             backgroundColor: color.pureWhite,
+            padding: "3%",
           }}
         >
           <View
@@ -126,8 +131,8 @@ const CreateGroup3: React.FC = () => {
             <Text
               style={{
                 textAlign: "left",
-                fontSize: 14,
-                lineHeight: 18.23,
+                fontSize: wp(fontSizes[13]),
+                //lineHeight: 18.23,
                 fontFamily: fontFamily.DMSans_500,
               }}
             >
@@ -148,39 +153,34 @@ const CreateGroup3: React.FC = () => {
         >
           <Text
             style={{
-              fontSize: 10,
-              lineHeight: 15,
+              fontSize: wp(fontSizes[10]),
+              //lineHeight: 15,
               fontFamily: fontFamily.DMSans_500,
               textAlign: "left",
-              marginBottom: 5,
+              marginBottom: "2%",
             }}
           >
             Share this link
           </Text>
-          <View
+
+          <TextInput
             style={{
+              paddingHorizontal: "3%",
               borderWidth: 0.5,
               borderColor: color.blueGreen,
               backgroundColor: color.pureWhite,
               borderRadius: spacing.sm,
-              width: "100%",
-              flexDirection: "row",
-              alignItems: "center",
             }}
-          >
-            <TextInput style={{ flex: 0.9, padding: spacing.sm }} />
-            <Ionicons
-              name="copy-outline"
-              size={24}
-              color={color.green}
-              style={{ flex: 0.1 }}
-            />
-          </View>
+            renderRightIcon={() => (
+              <Ionicons name="copy-outline" size={24} color={color.green} />
+            )}
+          />
         </View>
+
         <View
           style={{
             flexDirection: "row",
-            justifyContent: "space-evenly",
+            justifyContent: "space-between",
             alignItems: "center",
             width: "100%",
           }}
@@ -189,19 +189,24 @@ const CreateGroup3: React.FC = () => {
             style={{
               height: imageDimension,
               width: imageDimension,
+              gap: 10,
             }}
           >
-            <ImageBackground
-              source={require("./../assets/images/imessage.png")}
-              style={{ flex: 1 }}
-              resizeMode="cover"
+            <Image
+              source={require("./../assets/images/imessageicon.png")}
+              style={{
+                height: imageDimension,
+                width: imageDimension,
+              }}
+              resizeMode="stretch"
+              resizeMethod="scale"
             />
             <Text
               style={{
-                fontSize: 11,
+                fontSize: wp(fontSizes[12]),
                 textAlign: "center",
                 lineHeight: 13,
-                fontFamily: fontFamily.Avenir_400,
+                fontFamily: fontFamily.Avenir_500,
               }}
             >
               imessage
@@ -211,19 +216,24 @@ const CreateGroup3: React.FC = () => {
             style={{
               height: imageDimension,
               width: imageDimension,
+              gap: 10,
             }}
           >
-            <ImageBackground
-              source={require("./../assets/images/messenger.png")}
-              style={{ flex: 1 }}
-              resizeMode="cover"
+            <Image
+              source={require("./../assets/images/messengericon.png")}
+              style={{
+                height: imageDimension,
+                width: imageDimension,
+              }}
+              resizeMode="stretch"
+              resizeMethod="scale"
             />
             <Text
               style={{
-                fontSize: 11,
+                fontSize: wp(fontSizes[12]),
                 textAlign: "center",
                 lineHeight: 13,
-                fontFamily: fontFamily.Avenir_400,
+                fontFamily: fontFamily.Avenir_500,
               }}
             >
               Messenger
@@ -233,19 +243,24 @@ const CreateGroup3: React.FC = () => {
             style={{
               height: imageDimension,
               width: imageDimension,
+              gap: 10,
             }}
           >
-            <ImageBackground
-              source={require("./../assets/images/whatsapp.png")}
-              style={{ flex: 1 }}
-              resizeMode="cover"
+            <Image
+              source={require("./../assets/images/whatsappicon.png")}
+              style={{
+                height: imageDimension,
+                width: imageDimension,
+              }}
+              resizeMode="contain"
+              resizeMethod="scale"
             />
             <Text
               style={{
-                fontSize: 11,
+                fontSize: wp(fontSizes[12]),
                 textAlign: "center",
                 lineHeight: 13,
-                fontFamily: fontFamily.Avenir_400,
+                fontFamily: fontFamily.Avenir_500,
               }}
             >
               WhatsApp
@@ -255,19 +270,25 @@ const CreateGroup3: React.FC = () => {
             style={{
               height: imageDimension,
               width: imageDimension,
+              gap: 10,
+              backgroundColor: color.white,
             }}
           >
-            <ImageBackground
-              source={require("./../assets/images/snapchat.png")}
-              style={{ flex: 1 }}
-              resizeMode="contain"
+            <Image
+              source={require("./../assets/images/snapicon.png")}
+              style={{
+                height: imageDimension,
+                width: imageDimension,
+              }}
+              resizeMode="cover"
+              resizeMethod="scale"
             />
             <Text
               style={{
-                fontSize: 11,
+                fontSize: wp(fontSizes[12]),
                 textAlign: "center",
                 lineHeight: 13,
-                fontFamily: fontFamily.Avenir_400,
+                fontFamily: fontFamily.Avenir_500,
               }}
             >
               SnapChat
@@ -277,46 +298,46 @@ const CreateGroup3: React.FC = () => {
       </View>
       <View
         style={{
+          flex: 1.5,
+        }}
+      ></View>
+      <ShadowedView
+        style={{
           flex: 1.3,
           alignItems: "center",
           justifyContent: "center",
           backgroundColor: color.white,
-          paddingHorizontal: spacing.sm,
-          ...Platform.select({
-            ios: {
-              shadowColor: color.black,
-              shadowOffset: { width: 0, height: -3 }, // Only top shadow
-              shadowOpacity: 0.5,
-              shadowRadius: 3,
-            },
-            android: {
-              elevation: 25,
-            },
+          paddingHorizontal: "5%",
+          ...shadowStyle({
+            color: color.grey,
+            opacity: 0.25,
+            radius: 30,
+            offset: [0, -2],
           }),
         }}
       >
         <TouchableOpacity
           style={{
             width: "100%",
-            backgroundColor: color.green,
+            backgroundColor: color.blueGreen,
             borderRadius: 4,
-            padding: spacing.md,
+            padding: "5%",
           }}
           onPress={() => router.navigate("(Group)")}
         >
           <Text
             style={{
               color: color.white,
-              fontSize: 18,
+              fontSize: wp(fontSizes[22]),
               fontFamily: fontFamily.DMSans_700,
               textAlign: "center",
-              lineHeight: 22,
+              //lineHeight: 22,
             }}
           >
             Finish
           </Text>
         </TouchableOpacity>
-      </View>
+      </ShadowedView>
     </SafeAreaView>
   );
 };
@@ -325,13 +346,14 @@ export default CreateGroup3;
 
 const styles = StyleSheet.create({
   heading: {
-    fontSize: 24,
-    lineHeight: 36,
+    fontSize: wp(fontSizes[26]),
+    //lineHeight: 36,
     fontFamily: fontFamily.DMSans_700,
+    color: color.black,
   },
 
   switch: {
     transform: [{ scale: 0.6 }],
-    backgroundColor: "#F7FBFD",
+    backgroundColor: color.white,
   },
 });

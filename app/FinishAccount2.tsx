@@ -11,7 +11,12 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Calendar } from "react-native-calendars";
 import { useRouter } from "expo-router";
 import { color, fontFamily } from "../utils/Color";
-import { spacing } from "../utils/sizes";
+import { spacing, fontSizes } from "../utils/sizes";
+import { ShadowedView, shadowStyle } from "react-native-fast-shadow";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
 const FinishAccount2: React.FC = () => {
   const router = useRouter();
@@ -27,11 +32,11 @@ const FinishAccount2: React.FC = () => {
     >
       <View
         style={{
-          flex: 1.5,
+          flex: 1.3,
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "space-between",
-          paddingHorizontal: 15,
+          paddingHorizontal: "6%",
         }}
       >
         <Text style={styles.heading}>Finish Account</Text>
@@ -40,7 +45,7 @@ const FinishAccount2: React.FC = () => {
           <Text
             style={{
               color: color.red,
-              fontSize: 14,
+              fontSize: wp(fontSizes[20]),
               fontFamily: fontFamily.DMSans_700,
             }}
           >
@@ -54,36 +59,43 @@ const FinishAccount2: React.FC = () => {
           flexDirection: "row",
         }}
       >
-        <View style={{ flex: 9, backgroundColor: color.green }}></View>
-        <View style={{ flex: 1, backgroundColor: "#00C18733" }}></View>
+        <View
+          style={{
+            flex: 9,
+            backgroundColor: color.green,
+            borderTopRightRadius: 4,
+            borderBottomEndRadius: 4,
+          }}
+        ></View>
+        <View style={{ flex: 1, backgroundColor: color.progressGreen }}></View>
       </View>
       <View
         style={{
-          flex: 8.3,
+          flex: 7,
           alignItems: "center",
           justifyContent: "center",
-          paddingHorizontal: 10,
+          paddingHorizontal: "2%",
         }}
       >
         <View
           style={{
             flex: 3,
             flexDirection: "row",
-            alignItems: "flex-end",
-            // borderWidth: 2,
-            // borderColor: "black",
+            alignItems: "center",
+            paddingTop: "4%",
           }}
         >
           <View
             style={{
               flex: 7,
+              paddingHorizontal: "3%",
             }}
           >
             <Text
               style={{
-                fontSize: 32,
+                fontSize: wp(fontSizes[32]),
                 fontFamily: fontFamily.DMSans_700,
-                lineHeight: 48,
+                lineHeight: 52,
                 textAlign: "left",
               }}
             >
@@ -92,7 +104,7 @@ const FinishAccount2: React.FC = () => {
           </View>
           <View
             style={{
-              flex: 4,
+              flex: 3,
             }}
           ></View>
         </View>
@@ -100,9 +112,6 @@ const FinishAccount2: React.FC = () => {
           style={{
             flex: 8,
             width: "100%",
-            justifyContent: "center",
-            // borderWidth: 2,
-            // borderColor: "black",
           }}
         >
           <Calendar
@@ -111,47 +120,43 @@ const FinishAccount2: React.FC = () => {
             }}
             style={{
               width: "100%",
-              transform: [{ scale: 1 }],
+
               backgroundColor: color.lightBlue,
             }}
           />
         </View>
       </View>
-      <View
+      <ShadowedView
         style={{
-          flex: 1.3,
+          flex: 1.5,
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "space-evenly",
-          backgroundColor: "#FFFFFF",
-          ...Platform.select({
-            ios: {
-              shadowColor: color.black,
-              shadowOffset: { width: 0, height: -3 }, // Only top shadow
-              shadowOpacity: 0.5,
-              shadowRadius: 3,
-            },
-            android: {
-              elevation: 25,
-            },
+          backgroundColor: color.pureWhite,
+          ...shadowStyle({
+            color: color.grey,
+            opacity: 0.25,
+            radius: 30,
+            offset: [0, -2],
           }),
         }}
       >
         <TouchableOpacity
           style={{
-            borderWidth: 1,
+            borderWidth: 1.5,
             borderColor: color.green,
             borderRadius: 4,
             flex: 2,
-            marginHorizontal: 15,
-            padding: spacing.md,
+            marginHorizontal: "5%",
+            paddingVertical: "4%",
+            paddingHorizontal: "2%",
           }}
           onPress={() => router.back()}
         >
           <Text
             style={{
               color: color.green,
-              fontSize: 18,
+              fontSize: wp(fontSizes[22]),
               fontFamily: fontFamily.Avenir_700,
               textAlign: "center",
             }}
@@ -166,15 +171,15 @@ const FinishAccount2: React.FC = () => {
             borderWidth: 1,
             borderColor: color.green,
             borderRadius: 4,
-            marginRight: 15,
-            padding: spacing.md,
+            marginRight: "5%",
+            padding: "4%",
           }}
           onPress={() => router.navigate("(tabs)")}
         >
           <Text
             style={{
               color: color.white,
-              fontSize: 18,
+              fontSize: wp(fontSizes[22]),
               fontFamily: fontFamily.Avenir_700,
               textAlign: "center",
             }}
@@ -182,7 +187,7 @@ const FinishAccount2: React.FC = () => {
             Let's Go!
           </Text>
         </TouchableOpacity>
-      </View>
+      </ShadowedView>
     </SafeAreaView>
   );
 };
@@ -191,7 +196,7 @@ export default FinishAccount2;
 
 const styles = StyleSheet.create({
   heading: {
-    fontSize: 24,
+    fontSize: wp(fontSizes[26]),
     lineHeight: 36,
     fontFamily: fontFamily.DMSans_700,
   },

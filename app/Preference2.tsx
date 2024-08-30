@@ -2,17 +2,21 @@ import {
   Platform,
   StyleSheet,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
   Switch,
 } from "react-native";
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 import { useRouter } from "expo-router";
 import { color, fontFamily } from "../utils/Color";
-import { spacing } from "../utils/sizes";
+import { spacing, fontSizes } from "../utils/sizes";
+import { TextInput } from "react-native-element-textinput";
+import { ShadowedView, shadowStyle } from "react-native-fast-shadow";
 
 const Preference2: React.FC = () => {
   const router = useRouter();
@@ -23,6 +27,7 @@ const Preference2: React.FC = () => {
     <SafeAreaView
       style={{
         flex: 1,
+
         backgroundColor: color.lightBlue,
       }}
     >
@@ -32,7 +37,7 @@ const Preference2: React.FC = () => {
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "space-between",
-          paddingHorizontal: 15,
+          paddingHorizontal: "5%",
         }}
       >
         <Text style={styles.heading}>Create Event</Text>
@@ -42,7 +47,7 @@ const Preference2: React.FC = () => {
             style={{
               color: color.red,
               fontFamily: fontFamily.DMSans_700,
-              fontSize: 14,
+              fontSize: wp(fontSizes[20]),
             }}
           >
             Cancel
@@ -55,15 +60,21 @@ const Preference2: React.FC = () => {
           flexDirection: "row",
         }}
       >
-        <View style={{ flex: 2, backgroundColor: color.green }}></View>
+        <View
+          style={{
+            flex: 2,
+            backgroundColor: color.green,
+            borderTopRightRadius: 4,
+            borderBottomEndRadius: 4,
+          }}
+        ></View>
         <View style={{ flex: 8, backgroundColor: color.progressGreen }}></View>
       </View>
       <View
         style={{
-          flex: 8,
+          flex: 5,
           justifyContent: "flex-start",
-          paddingVertical: 15,
-          paddingHorizontal: 15,
+          padding: "5%",
           gap: 20,
         }}
       >
@@ -79,9 +90,9 @@ const Preference2: React.FC = () => {
           >
             <Text
               style={{
-                fontSize: 32,
+                fontSize: wp(fontSizes[32]),
                 fontFamily: fontFamily.DMSans_700,
-                lineHeight: 48,
+                //lineHeight: 48,
                 textAlign: "left",
               }}
             >
@@ -97,54 +108,31 @@ const Preference2: React.FC = () => {
         <Text
           style={{
             fontFamily: fontFamily.DMSans_500,
-            fontSize: 18,
-            lineHeight: 22,
+            fontSize: wp(fontSizes[24]),
+            lineHeight: 30,
+            //paddingRight: "10%",
           }}
         >
           Ask your guests a question for them to respond to, such as ‘what song
           would you like to add to the playlist’?
         </Text>
 
-        <View
-          style={{
-            width: "100%",
-            backgroundColor: color.white,
-            borderRadius: 8,
-            position: "relative",
-            elevation: 2,
-            justifyContent: "center",
-            padding: 5,
-          }}
-        >
-          <Text
-            style={{
-              zIndex: 0,
-              padding: 5,
-              fontFamily: fontFamily.DMSans_500Italic,
-              opacity: 0.5,
-              fontSize: 16,
-            }}
-          >
-            Questions...
-          </Text>
-          <TextInput
-            style={{
-              flex: 1,
-              position: "absolute",
-              zIndex: 1,
-            }}
-          />
-        </View>
+        <TextInput
+          placeholder="Question..."
+          inputStyle={styles.Inputstyle}
+          placeholderTextColor={color.grey}
+          fontFamily={fontFamily.DMSans_500Italic}
+        />
         <View
           style={{
             flexDirection: "row",
             justifyContent: "center",
-            alignItems: "center",
             alignSelf: "center",
+            alignItems: "center",
             backgroundColor: color.white,
             borderRadius: 8,
-            elevation: 5,
-            width: "60%",
+            padding: "2%",
+            width: wp("50%"),
           }}
         >
           <Switch
@@ -158,48 +146,45 @@ const Preference2: React.FC = () => {
           <Text
             style={{
               fontFamily: fontFamily.DMSans_500,
-              fontSize: 16,
+              fontSize: wp(fontSizes[18]),
             }}
           >
             Answer required
           </Text>
         </View>
       </View>
-      <View
+      <View style={{ flex: 3 }}></View>
+      <ShadowedView
         style={{
           flex: 1.3,
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "space-evenly",
-          backgroundColor: "#FFFFFF",
-          ...Platform.select({
-            ios: {
-              shadowColor: color.black,
-              shadowOffset: { width: 0, height: -3 }, // Only top shadow
-              shadowOpacity: 0.5,
-              shadowRadius: 3,
-            },
-            android: {
-              elevation: 25,
-            },
+          backgroundColor: color.white,
+          ...shadowStyle({
+            color: color.grey,
+            opacity: 0.25,
+            radius: 30,
+            offset: [0, -2],
           }),
         }}
       >
         <TouchableOpacity
           style={{
-            borderWidth: 1,
+            borderWidth: 1.5,
             borderColor: color.green,
             borderRadius: 4,
             flex: 2,
-            marginHorizontal: 15,
-            padding: spacing.md,
+            marginHorizontal: "5%",
+            paddingVertical: "4%",
+            paddingHorizontal: "2%",
           }}
           onPress={() => router.back()}
         >
           <Text
             style={{
               color: color.green,
-              fontSize: 18,
+              fontSize: wp(fontSizes[22]),
               fontFamily: fontFamily.Avenir_700,
               textAlign: "center",
             }}
@@ -209,20 +194,20 @@ const Preference2: React.FC = () => {
         </TouchableOpacity>
         <TouchableOpacity
           style={{
-            backgroundColor: color.green,
+            backgroundColor: color.blueGreen,
             flex: 3,
             borderWidth: 1,
-            borderColor: color.green,
             borderRadius: 4,
-            marginRight: 15,
-            padding: spacing.md,
+            borderColor: color.green,
+            marginRight: "5%",
+            padding: "4%",
           }}
           onPress={() => router.navigate("Preference3")}
         >
           <Text
             style={{
               color: color.white,
-              fontSize: 18,
+              fontSize: wp(fontSizes[22]),
               fontFamily: fontFamily.Avenir_700,
               textAlign: "center",
             }}
@@ -230,7 +215,7 @@ const Preference2: React.FC = () => {
             Next
           </Text>
         </TouchableOpacity>
-      </View>
+      </ShadowedView>
     </SafeAreaView>
   );
 };
@@ -239,13 +224,20 @@ export default Preference2;
 
 const styles = StyleSheet.create({
   heading: {
-    fontSize: 24,
-    lineHeight: 36,
+    fontSize: wp(fontSizes[26]),
+    //lineHeight: 36,
     fontFamily: fontFamily.DMSans_700,
+    color: color.black,
   },
-
   switch: {
     transform: [{ scale: 0.6 }],
     backgroundColor: "#F7FBFD",
+  },
+  Inputstyle: {
+    backgroundColor: color.white,
+    borderColor: color.borderBlue,
+    borderWidth: 1,
+    borderRadius: spacing.sm,
+    paddingHorizontal: "5%",
   },
 });

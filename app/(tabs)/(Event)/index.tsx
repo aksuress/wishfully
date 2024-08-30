@@ -12,6 +12,11 @@ import { useRouter } from "expo-router";
 import { LinearGradient } from "expo-linear-gradient";
 import { color, fontFamily } from "../../../utils/Color";
 import { spacing, fontSizes } from "../../../utils/sizes";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
+import { ShadowedView, shadowStyle } from "react-native-fast-shadow";
 
 const index: React.FC = () => {
   const router = useRouter();
@@ -19,8 +24,7 @@ const index: React.FC = () => {
     <SafeAreaView
       style={{
         flex: 1,
-        backgroundColor: color.paleGreen,
-        paddingHorizontal: 15,
+        backgroundColor: color.lightBlue,
       }}
     >
       <View
@@ -29,13 +33,14 @@ const index: React.FC = () => {
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "space-between",
+          paddingHorizontal: wp("4%"),
         }}
       >
         <Text style={styles.heading}>Events</Text>
         <Text
           style={{
-            fontSize: fontSizes.md,
-            lineHeight: 24,
+            fontSize: wp(fontSizes[18]),
+            //lineHeight: 24,
             color: color.black,
             fontFamily: fontFamily.DMSans_700,
           }}
@@ -46,6 +51,7 @@ const index: React.FC = () => {
       <View
         style={{
           flex: 2,
+          paddingHorizontal: "5%",
         }}
       >
         <TouchableOpacity
@@ -53,7 +59,7 @@ const index: React.FC = () => {
           style={{
             flex: 1.2,
             flexDirection: "row",
-            borderRadius: 5,
+            borderRadius: 12,
             backgroundColor: color.pureWhite,
           }}
         >
@@ -61,7 +67,7 @@ const index: React.FC = () => {
             <Text
               style={{
                 fontFamily: fontFamily.Avenir_800,
-                fontSize: 18,
+                fontSize: wp(fontSizes[22]),
                 textAlign: "center",
               }}
             >
@@ -70,14 +76,17 @@ const index: React.FC = () => {
             <View
               style={{
                 flexDirection: "row",
+                alignItems: "center",
               }}
             >
-              <View style={{ position: "relative", flexDirection: "row" }}>
+              <View style={{ flexDirection: "row" }}>
                 <View
                   style={{
-                    height: 24,
-                    width: 24,
-                    borderRadius: 10,
+                    height: hp("4%"),
+                    width: wp("8%"),
+                    borderRadius: 32,
+                    borderWidth: 2,
+                    borderColor: color.blueGreen,
                   }}
                 >
                   <Image
@@ -85,25 +94,27 @@ const index: React.FC = () => {
                     style={{
                       width: "100%",
                       height: "100%",
-                      borderRadius: 10,
+                      borderRadius: 32,
                     }}
                     resizeMode="cover"
                   />
                 </View>
                 <View
                   style={{
-                    height: 24,
-                    width: 24,
-                    borderRadius: 10,
-                    marginLeft: -5,
+                    height: hp("4%"),
+                    width: wp("8%"),
+                    borderRadius: 32,
+                    borderWidth: 2,
+                    borderColor: color.blueGreen,
+                    marginLeft: wp("-2%"),
                   }}
                 >
                   <Image
-                    source={require("../../../assets/images/baby.jpeg")}
+                    source={require("../../../assets/images/event.jpg")}
                     style={{
                       width: "100%",
                       height: "100%",
-                      borderRadius: 10,
+                      borderRadius: 32,
                     }}
                     resizeMode="cover"
                   />
@@ -112,9 +123,9 @@ const index: React.FC = () => {
               <Text
                 style={{
                   fontFamily: fontFamily.Avenir_800,
-                  fontSize: 12,
-                  lineHeight: 18,
-                  marginHorizontal: 4,
+                  fontSize: wp(fontSizes[10]),
+                  //lineHeight: 18,
+                  marginHorizontal: "2%",
                 }}
               >
                 Jane Smith
@@ -123,9 +134,9 @@ const index: React.FC = () => {
               <Text
                 style={{
                   fontFamily: fontFamily.Avenir_800,
-                  fontSize: 12,
-                  lineHeight: 18,
-                  marginHorizontal: 2,
+                  fontSize: wp(fontSizes[10]),
+                  //lineHeight: 18,
+                  marginHorizontal: "2%",
                 }}
               >
                 John Smith
@@ -136,22 +147,23 @@ const index: React.FC = () => {
                 flexDirection: "row",
                 justifyContent: "space-evenly",
                 alignItems: "center",
-                marginVertical: 5,
+                gap: 10,
               }}
             >
               <TouchableOpacity
                 style={{
-                  backgroundColor: color.lightGreen,
+                  backgroundColor: "#DCF4ED",
                   borderRadius: 4,
                 }}
               >
                 <Text
                   style={{
                     fontFamily: fontFamily.Avenir_500,
-                    paddingHorizontal: 10,
-                    paddingVertical: 3,
-                    fontSize: 11,
-                    lineHeight: 12.98,
+                    paddingHorizontal: "2%",
+                    paddingVertical: "2%",
+                    fontSize: wp(fontSizes[12]),
+                    //lineHeight: 12.98,
+                    color: color.black,
                   }}
                 >
                   19/11/2024
@@ -159,17 +171,17 @@ const index: React.FC = () => {
               </TouchableOpacity>
               <TouchableOpacity
                 style={{
-                  backgroundColor: color.lightGreen,
+                  backgroundColor: "#DCF4ED",
                   borderRadius: 4,
-                  marginLeft: spacing.sm,
                 }}
               >
                 <Text
                   style={{
-                    paddingHorizontal: 10,
-                    paddingVertical: 4,
-                    fontSize: 11,
-                    lineHeight: 12.98,
+                    paddingHorizontal: "2%",
+                    paddingVertical: "2%",
+                    fontSize: wp(fontSizes[12]),
+                    //lineHeight: 12.98,
+                    color: color.black,
                   }}
                 >
                   22 invited
@@ -179,13 +191,13 @@ const index: React.FC = () => {
           </View>
           <View style={{ flex: 3 }}>
             <ImageBackground
-              source={require("../../../assets/images/baby.jpeg")}
-              resizeMethod="cover"
+              source={require("../../../assets/images/baby.jpg")}
               style={{
                 flex: 1,
                 borderRadius: 5,
                 overflow: "hidden",
               }}
+              resizeMode="cover"
             >
               <LinearGradient
                 colors={[color.pureWhite, "rgba(255, 255, 255, 0)"]} // Adjust the colors and opacity as needed
@@ -200,10 +212,10 @@ const index: React.FC = () => {
                 <Text
                   style={{
                     backgroundColor: "#0386BA40",
-                    padding: spacing.sm,
-                    fontSize: 11,
+                    padding: "3%",
+                    fontSize: wp(fontSizes[12]),
                     fontFamily: fontFamily.Avenir_800,
-                    lineHeight: 12.98,
+                    //lineHeight: 12.98,
                   }}
                 >
                   Event
@@ -215,13 +227,16 @@ const index: React.FC = () => {
       </View>
       <View
         style={{
-          flex: 6,
-          justifyContent: "center",
+          flex: 5.5,
+          justifyContent: "flex-start",
+          paddingTop: "15%",
+          paddingHorizontal: "5%",
+          gap: 15,
         }}
       >
         <Text
           style={{
-            fontSize: fontSizes.xl,
+            fontSize: wp(fontSizes[32]),
             fontFamily: fontFamily.DMSans_700,
             textAlign: "center",
           }}
@@ -230,15 +245,16 @@ const index: React.FC = () => {
         </Text>
         <View
           style={{
-            paddingHorizontal: 48,
-            marginVertical: 15,
+            paddingHorizontal: "12%",
+            marginBottom: "5%",
           }}
         >
           <Text
             style={{
-              fontSize: 18,
+              fontSize: wp(fontSizes[24]),
               fontFamily: fontFamily.DMSans_500,
               textAlign: "center",
+              lineHeight: 30,
             }}
           >
             Create an event to share with your guests, keep them up to date and
@@ -248,16 +264,16 @@ const index: React.FC = () => {
         <TouchableOpacity
           onPress={() => router.navigate("/CreateEvent")}
           style={{
-            backgroundColor: color.green,
-            borderRadius: 5,
-            paddingVertical: spacing.md,
+            backgroundColor: color.blueGreen,
+            borderRadius: 8,
+            paddingVertical: "5%",
           }}
         >
           <Text
             style={{
-              fontSize: 18,
+              fontSize: wp(fontSizes[22]),
               fontFamily: fontFamily.DMSans_700,
-              lineHeight: 22,
+              // lineHeight: 22,
               textAlign: "center",
               color: color.white,
             }}
@@ -266,6 +282,18 @@ const index: React.FC = () => {
           </Text>
         </TouchableOpacity>
       </View>
+      <View style={{ flex: 0.9 }}></View>
+      <ShadowedView
+        style={{
+          flex: 0.1,
+          ...shadowStyle({
+            color: color.grey,
+            opacity: 0.5,
+            radius: 30,
+            offset: [0, 1],
+          }),
+        }}
+      ></ShadowedView>
     </SafeAreaView>
   );
 };
@@ -274,18 +302,19 @@ export default index;
 
 const styles = StyleSheet.create({
   heading: {
-    fontSize: 24,
+    fontSize: wp(fontSizes[26]),
+    //lineHeight: 36,
     fontFamily: fontFamily.DMSans_700,
-    lineHeight: 36,
     color: color.black,
   },
   card: {
     flex: 7,
-    justifyContent: "space-around",
+    justifyContent: "center",
     alignItems: "flex-start",
-    paddingLeft: 15,
+    paddingLeft: "5%",
     borderRightWidth: 5,
     borderRightColor: "white",
     borderStyle: "dashed",
+    gap: 20,
   },
 });

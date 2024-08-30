@@ -1,22 +1,47 @@
 import {
   StyleSheet,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
   Image,
   ImageBackground,
   KeyboardAvoidingView,
+  Pressable,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { color, fontFamily } from "../utils/Color";
-import { spacing } from "../utils/sizes";
+import { spacing, fontSizes } from "../utils/sizes";
 import { Entypo } from "@expo/vector-icons";
-
+import { TextInput } from "react-native-element-textinput";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 import { useRouter, Link } from "expo-router";
+import { signIn, type SignInInput } from "aws-amplify/auth";
+
 const Login: React.FC = () => {
+  const [onfocusEmail, setonFocusEmail] = useState(false);
+  const [onfocusPass, setonFocusPass] = useState(false);
   const router = useRouter();
+  const [username, setusername] = useState("kngyogan@gmail.com");
+  const [password, setpassword] = useState("pmdg@#1234");
+
+  async function handleSignIn({ username, password }: SignInInput) {
+    try {
+      const { isSignedIn, nextStep } = await signIn({ username, password });
+      console.log("signin called");
+      if (isSignedIn) {
+        router.navigate("FinishAccount1");
+      } else {
+        console.log("login failed");
+      }
+    } catch (error) {
+      console.log("error signing in", error);
+    }
+  }
+
   return (
     <SafeAreaView
       style={{
@@ -37,7 +62,7 @@ const Login: React.FC = () => {
             flex: 1,
             flexDirection: "row",
             alignItems: "center",
-            marginTop: 15,
+            marginTop: "8%",
             justifyContent: "flex-start",
           }}
         >
@@ -45,17 +70,23 @@ const Login: React.FC = () => {
             onPress={() => router.navigate("CreateAccount")}
             style={{
               backgroundColor: "#00000040",
-              padding: 5,
+              padding: "2%",
+              marginLeft: "2%",
+              borderRadius: 8,
             }}
           >
-            <Entypo name="chevron-left" size={24} color={color.white} />
+            <Entypo
+              name="chevron-left"
+              size={hp(fontSizes[24])}
+              color={color.white}
+            />
           </TouchableOpacity>
           <Text
             style={{
-              fontSize: 47,
+              fontSize: wp(fontSizes[47]),
               lineHeight: 69.56,
               fontFamily: fontFamily.DMSans_700,
-              marginLeft: 25,
+              marginLeft: "8%",
               color: color.white,
             }}
           >
@@ -65,7 +96,7 @@ const Login: React.FC = () => {
 
         <View
           style={{
-            flex: 2.5,
+            flex: 2,
             justifyContent: "flex-start",
             alignItems: "center",
           }}
@@ -80,185 +111,187 @@ const Login: React.FC = () => {
           paddingHorizontal: "5%",
         }}
       >
-        <KeyboardAvoidingView style={{ flex: 5 }}>
+        <View style={{ flex: 5 }}>
           <Text
             style={{
-              fontSize: 24,
+              fontSize: wp(fontSizes[26]),
               lineHeight: 36,
               fontFamily: fontFamily.DMSans_700,
               textAlign: "left",
+              marginTop: "8%",
             }}
           >
-            Login
+            Log in
           </Text>
-
-          <View
-            style={{
-              backgroundColor: color.pureWhite,
-              borderRadius: spacing.sm,
-              marginVertical: spacing.sm,
-              position: "relative",
-              elevation: 2,
-              padding: 5,
+          <TextInput
+            placeholder=" Email..."
+            style={[
+              styles.Inputstyle,
+              { backgroundColor: onfocusEmail ? "#E1EEF8" : color.white },
+            ]}
+            inputStyle={{ fontSize: wp(fontSizes[20]) }}
+            placeholderTextColor="#00000073"
+            fontFamily={fontFamily.DMSans_500Italic}
+            onFocus={() => setonFocusEmail(true)}
+            onBlur={() => setonFocusEmail(false)}
+            value={username}
+          />
+          <TextInput
+            placeholder=" Password..."
+            style={[
+              styles.Inputstyle,
+              { backgroundColor: onfocusPass ? "#E1EEF8" : color.white },
+            ]}
+            inputStyle={{ fontSize: wp(fontSizes[20]) }}
+            placeholderTextColor="#00000073"
+            fontFamily={fontFamily.DMSans_500Italic}
+            onFocus={() => setonFocusPass(true)}
+            onBlur={() => setonFocusPass(false)}
+            mode="password"
+            value={password}
+          />
+          <Pressable
+            onPress={() => {
+              handleSignIn({ username, password });
             }}
           >
             <Text
               style={{
-                zIndex: 0,
-                padding: 10,
-                opacity: 0.5,
-                fontSize: 16,
-                fontFamily: fontFamily.DMSans_500Italic,
+                fontFamily: fontFamily.DMSans_700,
+                fontSize: wp(fontSizes[24]),
+                lineHeight: 21,
+                textAlign: "center",
+                // color: color.white,
+                marginVertical: "2%",
+                textDecorationLine: "underline",
+                textDecorationStyle: "double",
               }}
             >
-              Email...
+              Log in
             </Text>
-            <TextInput
-              placeholderTextColor={"#00000073"}
-              keyboardAppearance="dark"
-              style={{
-                width: "100%",
-                position: "absolute",
-                zIndex: 1,
-              }}
-            />
-          </View>
-          <View
-            style={{
-              backgroundColor: color.pureWhite,
-              borderRadius: spacing.sm,
-              marginVertical: spacing.sm,
-              position: "relative",
-              elevation: 2,
-              padding: 5,
-            }}
-          >
-            <Text
-              style={{
-                zIndex: 0,
-                padding: 10,
-                opacity: 0.5,
-                fontSize: 16,
-                fontFamily: fontFamily.DMSans_500Italic,
-              }}
-            >
-              Password...
-            </Text>
-            <TextInput
-              placeholderTextColor={"#00000073"}
-              keyboardAppearance="dark"
-              style={{
-                width: "100%",
-                position: "absolute",
-                zIndex: 1,
-              }}
-            ></TextInput>
-          </View>
+          </Pressable>
           <Text
             style={{
-              fontSize: 14,
+              fontSize: wp(fontSizes[13]),
               lineHeight: 21,
               fontFamily: fontFamily.DMSans_700,
               textAlign: "center",
               textDecorationLine: "underline",
               textDecorationStyle: "solid",
               color: color.navyBlue,
-              marginVertical: 10,
+              marginVertical: "0.5%",
             }}
           >
             Forgotten Password?
           </Text>
           <Text
             style={{
-              fontSize: 12,
+              fontSize: wp(fontSizes[12]),
               lineHeight: 22,
               fontFamily: fontFamily.DMSans_700,
               textAlign: "center",
               color: color.black,
+              marginTop: "4%",
+              opacity: 0.5,
             }}
           >
             or
           </Text>
-        </KeyboardAvoidingView>
+        </View>
         <View
           style={{
             flex: 5,
             width: "100%",
-            alignSelf: "center",
-            marginVertical: 30,
-            justifyContent: "space-around",
+            justifyContent: "flex-start",
           }}
         >
           <View
             style={{
-              width: "100%",
-              borderWidth: 1,
-              borderRadius: 8,
-              borderColor: color.green,
-              padding: 15,
-              backgroundColor: color.white,
+              gap: 20,
+              marginBottom: "5%",
             }}
           >
-            <Text
+            <View
               style={{
-                fontFamily: fontFamily.DMSans_700,
-                fontSize: 18,
-                lineHeight: 22,
-                textAlign: "center",
-                color: color.green,
+                width: "100%",
+                borderWidth: 1,
+                borderRadius: 8,
+                borderColor: color.green,
+                padding: "5%",
+                backgroundColor: color.white,
               }}
             >
-              Sign in with Facebook
-            </Text>
+              <Text
+                style={{
+                  fontFamily: fontFamily.DMSans_700,
+                  fontSize: wp(fontSizes[22]),
+                  lineHeight: 22,
+                  textAlign: "center",
+                  color: color.green,
+                }}
+              >
+                Sign in with Facebook
+              </Text>
+            </View>
+            <View
+              style={{
+                width: "100%",
+                borderWidth: 1,
+                borderRadius: 8,
+                borderColor: color.green,
+                padding: "5%",
+                backgroundColor: color.white,
+              }}
+            >
+              <Text
+                style={{
+                  fontFamily: fontFamily.DMSans_700,
+                  fontSize: 18,
+                  lineHeight: 22,
+                  textAlign: "center",
+                  color: color.green,
+                }}
+              >
+                Sign in with Google
+              </Text>
+            </View>
           </View>
           <View
             style={{
-              width: "100%",
-              borderWidth: 1,
-              borderRadius: 8,
-              borderColor: color.green,
-              padding: 15,
-              backgroundColor: color.white,
+              gap: 10,
+
+              marginBottom: 15,
             }}
           >
             <Text
               style={{
+                fontSize: 14,
+                lineHeight: 21,
                 fontFamily: fontFamily.DMSans_700,
-                fontSize: 18,
-                lineHeight: 22,
                 textAlign: "center",
-                color: color.green,
+                marginVertical: 10,
+                color: color.black,
+                opacity: 0.5,
               }}
             >
-              Sign in with Google
+              Need an account?
             </Text>
+            <TouchableOpacity onPress={() => router.navigate("Email")}>
+              <Text
+                style={{
+                  fontSize: 18,
+                  lineHeight: 27,
+                  fontFamily: fontFamily.DMSans_700,
+                  textAlign: "center",
+                  textDecorationLine: "underline",
+                  textDecorationStyle: "solid",
+                  color: color.navyBlue,
+                }}
+              >
+                Sign Up!
+              </Text>
+            </TouchableOpacity>
           </View>
-          <Text
-            style={{
-              fontSize: 14,
-              lineHeight: 21,
-              fontFamily: fontFamily.DMSans_700,
-              textAlign: "center",
-              marginVertical: 10,
-            }}
-          >
-            Need an account?
-          </Text>
-          <TouchableOpacity onPress={() => router.navigate("Email")}>
-            <Text
-              style={{
-                fontSize: 18,
-                lineHeight: 27,
-                fontFamily: fontFamily.DMSans_700,
-                textAlign: "center",
-                textDecorationLine: "underline",
-                textDecorationStyle: "solid",
-                color: color.navyBlue,
-              }}
-            >
-              Sign Up
-            </Text>
-          </TouchableOpacity>
         </View>
       </View>
     </SafeAreaView>
@@ -276,5 +309,12 @@ const styles = StyleSheet.create({
   wave: {
     position: "absolute",
     bottom: 0,
+  },
+  Inputstyle: {
+    borderColor: color.borderBlue,
+    borderWidth: 1,
+    borderRadius: 8,
+    padding: "2%",
+    marginVertical: "2%",
   },
 });

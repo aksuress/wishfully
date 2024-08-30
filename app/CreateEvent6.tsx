@@ -12,6 +12,11 @@ import { AntDesign, Entypo } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { color, fontFamily } from "../utils/Color";
 import { spacing, fontSizes } from "../utils/sizes";
+import { ShadowedView, shadowStyle } from "react-native-fast-shadow";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
 const CreateEvent6: React.FC = () => {
   const router = useRouter();
@@ -29,7 +34,7 @@ const CreateEvent6: React.FC = () => {
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "space-between",
-          paddingHorizontal: 15,
+          paddingHorizontal: "5%",
         }}
       >
         <Text style={styles.heading}>Create Event</Text>
@@ -39,7 +44,7 @@ const CreateEvent6: React.FC = () => {
             style={{
               color: color.red,
               fontFamily: fontFamily.DMSans_700,
-              fontSize: 14,
+              fontSize: wp(fontSizes[20]),
             }}
           >
             Cancel
@@ -52,165 +57,179 @@ const CreateEvent6: React.FC = () => {
           flexDirection: "row",
         }}
       >
-        <View style={{ flex: 2, backgroundColor: color.green }}></View>
+        <View
+          style={{
+            flex: 2,
+            backgroundColor: color.green,
+            borderTopRightRadius: 4,
+            borderBottomEndRadius: 4,
+          }}
+        ></View>
         <View style={{ flex: 8, backgroundColor: color.progressGreen }}></View>
       </View>
       <View
         style={{
-          flex: 8,
-          alignItems: "center",
-          justifyContent: "flex-start",
-          paddingVertical: 10,
-          paddingHorizontal: 20,
+          flex: 4.5,
+          alignItems: "flex-start",
+          justifyContent: "center",
+          paddingHorizontal: "5%",
+          gap: 20,
         }}
       >
-        <View
+        <Text
           style={{
-            width: "100%",
-            justifyContent: "space-around",
-            gap: 10,
+            fontFamily: fontFamily.DMSans_700,
+            fontSize: wp(fontSizes[32]),
+            //lineHeight: 44,
           }}
         >
-          <Text
-            style={{
-              fontFamily: fontFamily.DMSans_700,
-              fontSize: 32,
-              lineHeight: 44,
-            }}
-          >
-            Need additional info from your guests?
-          </Text>
-          <Text
-            style={{
-              fontFamily: fontFamily.DMSans_500,
-              fontSize: 18,
-              lineHeight: 27,
-            }}
-          >
-            Add questions for guests to answer when RSVP’ing to the event.
-          </Text>
+          Need additional info from your guests?
+        </Text>
+        <Text
+          style={{
+            fontFamily: fontFamily.DMSans_500,
+            fontSize: wp(fontSizes[24]),
+            lineHeight: 27,
+            paddingRight: "12%",
+          }}
+        >
+          Add questions for guests to answer when RSVP’ing to the event.
+        </Text>
 
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
+            borderWidth: 1,
+            borderColor: color.green,
+            borderRadius: 8,
+            padding: "5%",
+            backgroundColor: color.white,
+            //marginVertical: 15,
+          }}
+        >
           <View
             style={{
+              flex: 5,
               flexDirection: "row",
               alignItems: "center",
-              justifyContent: "space-between",
-              borderWidth: 0.5,
-              borderColor: color.green,
-              borderRadius: 5,
-              padding: 8,
-              backgroundColor: color.white,
-              marginVertical: 15,
+              justifyContent: "flex-start",
+              gap: 15,
             }}
           >
-            <View
+            <AntDesign
+              name="pluscircleo"
+              size={wp(fontSizes[26])}
+              color={color.green}
+            />
+            <Text
               style={{
-                flex: 5,
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "flex-start",
+                fontFamily: fontFamily.Avenir_700,
+                fontSize: wp(fontSizes[22]),
+                //lineHeight: 22,
+                color: color.green,
               }}
             >
-              <AntDesign name="pluscircleo" size={24} color={color.green} />
-              <Text
-                style={{
-                  fontFamily: fontFamily.Avenir_700,
-                  fontSize: 18,
-                  lineHeight: 22,
-                  color: color.green,
-                  marginLeft: 14,
-                }}
-              >
-                Text Answer
-              </Text>
-            </View>
-            <View
-              style={{
-                flex: 5,
-                alignItems: "flex-end",
-              }}
-            >
-              <Entypo name="chevron-right" size={24} color={color.green} />
-            </View>
+              Text Answer
+            </Text>
           </View>
           <View
             style={{
+              flex: 5,
+              alignItems: "flex-end",
+            }}
+          >
+            <Entypo
+              name="chevron-right"
+              size={wp(fontSizes[26])}
+              color={color.green}
+            />
+          </View>
+        </View>
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
+            borderWidth: 1,
+            borderColor: color.green,
+            borderRadius: 8,
+            padding: "5%",
+            backgroundColor: color.white,
+          }}
+        >
+          <View
+            style={{
+              flex: 5,
               flexDirection: "row",
               alignItems: "center",
               justifyContent: "space-between",
-              borderWidth: 0.5,
-              borderColor: color.green,
-              borderRadius: 5,
-              padding: 8,
-              backgroundColor: color.white,
+              gap: 10,
             }}
           >
-            <View
+            <AntDesign name="pluscircleo" size={24} color={color.green} />
+            <Text
               style={{
-                flex: 5,
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "space-between",
+                fontFamily: fontFamily.Avenir_700,
+                fontSize: wp(fontSizes[22]),
+                //lineHeight: 22,
+                color: color.green,
               }}
             >
-              <AntDesign name="pluscircleo" size={24} color={color.green} />
-              <Text
-                style={{
-                  fontFamily: fontFamily.Avenir_700,
-                  fontSize: 18,
-                  lineHeight: 22,
-                  color: color.green,
-                }}
-              >
-                List of Options
-              </Text>
-            </View>
-            <View
-              style={{
-                flex: 5,
-                alignItems: "flex-end",
-              }}
-            >
-              <Entypo name="chevron-right" size={24} color={color.green} />
-            </View>
+              List of Options
+            </Text>
+          </View>
+          <View
+            style={{
+              flex: 5,
+              alignItems: "flex-end",
+            }}
+          >
+            <Entypo
+              name="chevron-right"
+              size={wp(fontSizes[26])}
+              color={color.green}
+            />
           </View>
         </View>
       </View>
       <View
         style={{
+          flex: 2.5,
+        }}
+      ></View>
+      <ShadowedView
+        style={{
           flex: 1.3,
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "space-evenly",
-          backgroundColor: "#FFFFFF",
-          ...Platform.select({
-            ios: {
-              shadowColor: color.black,
-              shadowOffset: { width: 0, height: -3 }, // Only top shadow
-              shadowOpacity: 0.5,
-              shadowRadius: 3,
-            },
-            android: {
-              elevation: 25,
-            },
+          backgroundColor: color.white,
+          ...shadowStyle({
+            color: color.grey,
+            opacity: 0.25,
+            radius: 30,
+            offset: [0, -2],
           }),
         }}
       >
         <TouchableOpacity
           style={{
-            borderWidth: 1,
+            borderWidth: 1.5,
             borderColor: color.green,
             borderRadius: 4,
             flex: 2,
-            marginHorizontal: 15,
-            padding: spacing.md,
+            marginHorizontal: "5%",
+            paddingVertical: "4%",
+            paddingHorizontal: "2%",
           }}
           onPress={() => router.back()}
         >
           <Text
             style={{
               color: color.green,
-              fontSize: 18,
+              fontSize: wp(fontSizes[22]),
               fontFamily: fontFamily.Avenir_700,
               textAlign: "center",
             }}
@@ -220,20 +239,20 @@ const CreateEvent6: React.FC = () => {
         </TouchableOpacity>
         <TouchableOpacity
           style={{
-            backgroundColor: color.green,
+            backgroundColor: color.blueGreen,
             flex: 3,
             borderWidth: 1,
-            borderColor: color.green,
             borderRadius: 4,
-            marginRight: 15,
-            padding: spacing.md,
+            borderColor: color.green,
+            marginRight: "5%",
+            padding: "4%",
           }}
           onPress={() => router.navigate("Preference1")}
         >
           <Text
             style={{
               color: color.white,
-              fontSize: 18,
+              fontSize: wp(fontSizes[22]),
               fontFamily: fontFamily.Avenir_700,
               textAlign: "center",
             }}
@@ -241,7 +260,7 @@ const CreateEvent6: React.FC = () => {
             Skip
           </Text>
         </TouchableOpacity>
-      </View>
+      </ShadowedView>
     </SafeAreaView>
   );
 };
@@ -250,9 +269,10 @@ export default CreateEvent6;
 
 const styles = StyleSheet.create({
   heading: {
-    fontSize: 24,
-    lineHeight: 36,
+    fontSize: wp(fontSizes[26]),
+    //lineHeight: 36,
     fontFamily: fontFamily.DMSans_700,
+    color: color.black,
   },
 
   switch: {

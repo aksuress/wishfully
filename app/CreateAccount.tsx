@@ -1,4 +1,11 @@
-import { StyleSheet, Text, TouchableOpacity, View, Image } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  Image,
+  Pressable,
+} from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { LinearGradient } from "expo-linear-gradient";
@@ -6,6 +13,10 @@ import { Entypo } from "@expo/vector-icons";
 import { useRouter, Link } from "expo-router";
 import { color, fontFamily } from "../utils/Color";
 import { fontSizes, spacing } from "../utils/sizes";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
 const CreateAccount: React.FC = () => {
   const router = useRouter();
@@ -17,8 +28,8 @@ const CreateAccount: React.FC = () => {
     >
       <LinearGradient
         colors={[color.blueGreen, color.navyBlue]}
-        start={{ x: 0.0, y: 0.3 }}
-        end={{ x: 1.0, y: 0.95 }}
+        start={{ x: 0.0, y: 0.5 }}
+        end={{ x: 1.0, y: 0.7 }}
         style={styles.gradient}
       >
         <View
@@ -27,7 +38,7 @@ const CreateAccount: React.FC = () => {
             width: "90%",
             flexDirection: "row",
             alignItems: "center",
-            marginTop: 15,
+            paddingTop: "5%",
             justifyContent: "flex-start",
           }}
         >
@@ -35,17 +46,23 @@ const CreateAccount: React.FC = () => {
             onPress={() => router.navigate("/")}
             style={{
               backgroundColor: "#00000040",
-              padding: 5,
+              padding: "1.5%",
+              borderRadius: 8,
+              marginLeft: "2%",
             }}
           >
-            <Entypo name="chevron-left" size={24} color={color.white} />
+            <Entypo
+              name="chevron-left"
+              size={hp(fontSizes[24])}
+              color={color.white}
+            />
           </TouchableOpacity>
           <Text
             style={{
-              fontSize: 47,
+              fontSize: wp(fontSizes[47]),
               lineHeight: 69.56,
               fontFamily: fontFamily.DMSans_700,
-              marginLeft: 25,
+              marginLeft: "8%",
               color: color.white,
             }}
           >
@@ -71,7 +88,7 @@ const CreateAccount: React.FC = () => {
         >
           <View
             style={{
-              flex: 1,
+              flex: 1.5,
               width: "100%",
               justifyContent: "center",
               alignItems: "flex-start",
@@ -79,7 +96,7 @@ const CreateAccount: React.FC = () => {
           >
             <Text
               style={{
-                fontSize: 24,
+                fontSize: wp(fontSizes[26]),
                 lineHeight: 36,
                 fontFamily: fontFamily.DMSans_700,
                 color: color.white,
@@ -91,9 +108,10 @@ const CreateAccount: React.FC = () => {
           </View>
           <View
             style={{
-              flex: 3,
+              flex: 5,
               width: "100%",
-              justifyContent: "space-between",
+              justifyContent: "flex-start",
+              gap: 25,
             }}
           >
             <TouchableOpacity
@@ -104,15 +122,15 @@ const CreateAccount: React.FC = () => {
                 borderRadius: 8,
                 borderWidth: 1,
                 borderColor: color.borderBlue,
-                paddingHorizontal: 10,
-                paddingVertical: 15,
+
+                paddingVertical: "5%",
                 elevation: 2,
               }}
             >
               <Text
                 style={{
                   fontFamily: fontFamily.DMSans_700,
-                  fontSize: 18,
+                  fontSize: wp(fontSizes[24]),
                   lineHeight: 22,
                   textAlign: "center",
                   color: color.blueGreen,
@@ -128,15 +146,15 @@ const CreateAccount: React.FC = () => {
                 borderRadius: spacing.sm,
                 borderWidth: 1,
                 borderColor: color.blueGreen,
-                paddingHorizontal: 10,
-                paddingVertical: 15,
+
+                paddingVertical: "5%",
                 elevation: 2,
               }}
             >
               <Text
                 style={{
                   fontFamily: fontFamily.DMSans_700,
-                  fontSize: 18,
+                  fontSize: wp(fontSizes[24]),
                   lineHeight: 22,
                   textAlign: "center",
                   color: color.blueGreen,
@@ -152,15 +170,15 @@ const CreateAccount: React.FC = () => {
                 borderRadius: spacing.sm,
                 borderWidth: 1,
                 borderColor: color.borderBlue,
-                paddingHorizontal: 10,
-                paddingVertical: 15,
+
+                paddingVertical: "5%",
                 elevation: 2,
               }}
             >
               <Text
                 style={{
                   fontFamily: fontFamily.DMSans_700,
-                  fontSize: 18,
+                  fontSize: wp(fontSizes[24]),
                   lineHeight: 22,
                   textAlign: "center",
                   color: color.blueGreen,
@@ -171,13 +189,13 @@ const CreateAccount: React.FC = () => {
             </View>
             <View
               style={{
-                paddingHorizontal: 25,
+                paddingHorizontal: "10%",
               }}
             >
               <Text
                 style={{
                   fontFamily: fontFamily.DMSans_400,
-                  fontSize: 12,
+                  fontSize: wp(fontSizes[12]),
                   lineHeight: 15.62,
                   textAlign: "center",
                   color: color.white,
@@ -208,39 +226,40 @@ const CreateAccount: React.FC = () => {
           </View>
           <View
             style={{
-              flex: 2,
+              flex: 3.5,
               width: "100%",
-              justifyContent: "center",
+              justifyContent: "flex-start",
+              paddingTop: "25%",
             }}
           >
             <Text
               style={{
                 fontFamily: fontFamily.DMSans_400,
-                fontSize: 14,
+                fontSize: wp(fontSizes[20]),
                 lineHeight: 21,
                 textAlign: "center",
                 color: color.white,
-                marginVertical: 5,
+                marginBottom: "2%",
               }}
             >
               Have an account?
             </Text>
-            <Link href={require("./")} asChild>
+            <Pressable onPress={() => router.push("Login")}>
               <Text
                 style={{
                   fontFamily: fontFamily.DMSans_700,
-                  fontSize: 18,
+                  fontSize: wp(fontSizes[24]),
                   lineHeight: 21,
                   textAlign: "center",
                   color: color.white,
-                  marginVertical: 5,
+                  marginVertical: "2%",
                   textDecorationLine: "underline",
                   textDecorationStyle: "solid",
                 }}
               >
                 Log in
               </Text>
-            </Link>
+            </Pressable>
           </View>
         </View>
       </LinearGradient>

@@ -14,7 +14,11 @@ import {
   Montserrat_400Regular,
 } from "@expo-google-fonts/montserrat";
 import * as SplashScreen from "expo-splash-screen";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+
+import { Amplify } from "aws-amplify";
+import amplifyconfig from "./amplifyconfiguration.json";
+Amplify.configure(amplifyconfig);
 
 SplashScreen.preventAutoHideAsync();
 
@@ -44,6 +48,7 @@ export default function RootLayout() {
   return (
     <Stack>
       <Stack.Screen name="index" options={{ headerShown: false }} />
+      <Stack.Screen name="Landing" options={{ headerShown: false }} />
       <Stack.Screen name="Login" options={{ headerShown: false }} />
       <Stack.Screen name="CreateAccount" options={{ headerShown: false }} />
       <Stack.Screen name="FinishAccount1" options={{ headerShown: false }} />

@@ -2,7 +2,6 @@ import {
   Platform,
   StyleSheet,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
@@ -10,7 +9,12 @@ import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { color, fontFamily } from "../utils/Color";
 import { spacing, fontSizes } from "../utils/sizes";
-
+import { ShadowedView, shadowStyle } from "react-native-fast-shadow";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
+import { TextInput } from "react-native-element-textinput";
 import { useRouter } from "expo-router";
 
 const CreateEvent3: React.FC = () => {
@@ -29,7 +33,7 @@ const CreateEvent3: React.FC = () => {
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "space-between",
-          paddingHorizontal: 15,
+          paddingHorizontal: "5%",
         }}
       >
         <Text style={styles.heading}>Create Event</Text>
@@ -39,7 +43,7 @@ const CreateEvent3: React.FC = () => {
             style={{
               color: color.red,
               fontFamily: fontFamily.DMSans_700,
-              fontSize: 14,
+              fontSize: wp(fontSizes[20]),
             }}
           >
             Cancel
@@ -52,79 +56,69 @@ const CreateEvent3: React.FC = () => {
           flexDirection: "row",
         }}
       >
-        <View style={{ flex: 2, backgroundColor: color.green }}></View>
+        <View
+          style={{
+            flex: 2,
+            backgroundColor: color.green,
+            borderTopRightRadius: 4,
+            borderBottomEndRadius: 4,
+          }}
+        ></View>
         <View style={{ flex: 8, backgroundColor: color.progressGreen }}></View>
       </View>
       <View
         style={{
-          flex: 8,
-          justifyContent: "flex-start",
-          paddingVertical: 30,
-          paddingHorizontal: 15,
-          gap: 50,
+          flex: 4,
+          alignItems: "flex-start",
+          justifyContent: "space-around",
+          paddingHorizontal: "5%",
         }}
       >
         <Text
           style={{
             fontFamily: fontFamily.DMSans_700,
-            fontSize: 32,
-            lineHeight: 48,
+            fontSize: wp(fontSizes[32]),
+            //lineHeight: 48,
             color: color.black,
-            textAlign: "center",
+            textAlign: "left",
           }}
         >
           Where is the event?
         </Text>
-        <View
-          style={{
-            width: "100%",
-            height: 50,
-            backgroundColor: "#0386BA0D",
-            marginTop: 50,
-            borderRadius: 8,
-            borderWidth: 1,
-            borderColor: color.green,
-            justifyContent: "center",
-          }}
-        >
-          <TextInput />
-        </View>
+        <TextInput inputStyle={styles.Inputstyle} />
       </View>
-      <View
+      <View style={{ flex: 4 }}></View>
+      <ShadowedView
         style={{
           flex: 1.3,
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "space-evenly",
-          backgroundColor: "#FFFFFF",
-          ...Platform.select({
-            ios: {
-              shadowColor: color.black,
-              shadowOffset: { width: 0, height: -3 }, // Only top shadow
-              shadowOpacity: 0.5,
-              shadowRadius: 3,
-            },
-            android: {
-              elevation: 25,
-            },
+          backgroundColor: color.white,
+          ...shadowStyle({
+            color: color.grey,
+            opacity: 0.25,
+            radius: 30,
+            offset: [0, -2],
           }),
         }}
       >
         <TouchableOpacity
           style={{
-            borderWidth: 1,
+            borderWidth: 1.5,
             borderColor: color.green,
             borderRadius: 4,
             flex: 2,
-            marginHorizontal: 15,
-            padding: spacing.md,
+            marginHorizontal: "5%",
+            paddingVertical: "4%",
+            paddingHorizontal: "2%",
           }}
           onPress={() => router.back()}
         >
           <Text
             style={{
               color: color.green,
-              fontSize: 18,
+              fontSize: wp(fontSizes[22]),
               fontFamily: fontFamily.Avenir_700,
               textAlign: "center",
             }}
@@ -134,20 +128,20 @@ const CreateEvent3: React.FC = () => {
         </TouchableOpacity>
         <TouchableOpacity
           style={{
-            backgroundColor: color.green,
+            backgroundColor: color.blueGreen,
             flex: 3,
             borderWidth: 1,
-            borderColor: color.green,
             borderRadius: 4,
-            marginRight: 15,
-            padding: spacing.md,
+            borderColor: color.green,
+            marginRight: "5%",
+            padding: "4%",
           }}
           onPress={() => router.navigate("CreateEvent4")}
         >
           <Text
             style={{
               color: color.white,
-              fontSize: 18,
+              fontSize: wp(fontSizes[22]),
               fontFamily: fontFamily.Avenir_700,
               textAlign: "center",
             }}
@@ -155,7 +149,7 @@ const CreateEvent3: React.FC = () => {
             Next
           </Text>
         </TouchableOpacity>
-      </View>
+      </ShadowedView>
     </SafeAreaView>
   );
 };
@@ -164,8 +158,16 @@ export default CreateEvent3;
 
 const styles = StyleSheet.create({
   heading: {
-    fontSize: 24,
-    lineHeight: 36,
+    fontSize: wp(fontSizes[26]),
+    //lineHeight: 36,
     fontFamily: fontFamily.DMSans_700,
+    color: color.black,
+  },
+  Inputstyle: {
+    backgroundColor: "#0386BA0D",
+    borderColor: color.borderBlue,
+    borderWidth: 2,
+    borderRadius: spacing.sm,
+    paddingHorizontal: "5%",
   },
 });

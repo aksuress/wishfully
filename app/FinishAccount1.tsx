@@ -1,16 +1,15 @@
-import {
-  Platform,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Link, useRouter } from "expo-router";
 import { color, fontFamily } from "../utils/Color";
 import { spacing, fontSizes } from "../utils/sizes";
+import { ShadowedView, shadowStyle } from "react-native-fast-shadow";
+import { TextInput } from "react-native-element-textinput";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
 const FinishAccount1: React.FC = () => {
   const router = useRouter();
@@ -23,11 +22,11 @@ const FinishAccount1: React.FC = () => {
     >
       <View
         style={{
-          flex: 1.4,
+          flex: 1.3,
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "space-between",
-          paddingHorizontal: 15,
+          paddingHorizontal: "6%",
         }}
       >
         <Text style={styles.heading}>Finish Account</Text>
@@ -36,7 +35,7 @@ const FinishAccount1: React.FC = () => {
           <Text
             style={{
               color: color.red,
-              fontSize: 14,
+              fontSize: wp(fontSizes[20]),
               fontFamily: fontFamily.DMSans_700,
             }}
           >
@@ -50,144 +49,96 @@ const FinishAccount1: React.FC = () => {
           flexDirection: "row",
         }}
       >
-        <View style={{ flex: 5, backgroundColor: color.green }}></View>
-        <View style={{ flex: 5, backgroundColor: "#00C18733" }}></View>
+        <View
+          style={{
+            flex: 5,
+            backgroundColor: color.green,
+            borderTopRightRadius: 4,
+            borderBottomEndRadius: 4,
+          }}
+        ></View>
+        <View style={{ flex: 5, backgroundColor: color.progressGreen }}></View>
       </View>
       <View
         style={{
-          flex: 7.1,
+          flex: 7,
           gap: 25,
           alignItems: "center",
-          justifyContent: "center",
-          paddingHorizontal: 15,
+          justifyContent: "flex-start",
+          paddingHorizontal: "5%",
+          paddingTop: "25%",
         }}
       >
-        <View style={{ flexDirection: "row" }}>
-          <View style={{ flex: 8 }}>
+        <View style={{ flexDirection: "row", marginBottom: "5%" }}>
+          <View style={{ flex: 9.5 }}>
             <Text
               style={{
-                fontSize: 32,
+                fontSize: wp(fontSizes[32]),
                 fontFamily: fontFamily.DMSans_700,
-                lineHeight: 48,
+                lineHeight: 55,
               }}
             >
               Welcome!
             </Text>
             <Text
               style={{
-                fontSize: 32,
+                fontSize: wp(fontSizes[32]),
                 fontFamily: fontFamily.DMSans_700,
-                lineHeight: 48,
+                lineHeight: 58,
               }}
             >
               Let’s finish creating your account
             </Text>
           </View>
-          <View style={{ flex: 2 }}></View>
+          <View style={{ flex: 0.5 }}></View>
         </View>
-
-        <View
-          style={{
-            width: "100%",
-            backgroundColor: color.white,
-            borderColor: color.borderBlue,
-            borderWidth: 1,
-            borderRadius: 8,
-            marginVertical: 8,
-            position: "relative",
-            elevation: 2,
-            padding: 5,
-          }}
-        >
-          <Text
-            style={{
-              zIndex: 0,
-              padding: 10,
-              opacity: 0.5,
-              fontSize: 16,
-              fontFamily: fontFamily.DMSans_500Italic,
-            }}
-          >
-            Firstname...
-          </Text>
-          <TextInput
-            keyboardAppearance="dark"
-            style={{
-              width: "100%",
-              position: "absolute",
-              zIndex: 1,
-            }}
-          ></TextInput>
-        </View>
-        <View
-          style={{
-            width: "100%",
-            backgroundColor: color.white,
-            borderColor: color.borderBlue,
-            borderWidth: 1,
-            borderRadius: 8,
-            marginVertical: 8,
-            position: "relative",
-            elevation: 2,
-            padding: 5,
-          }}
-        >
-          <Text
-            style={{
-              zIndex: 0,
-              padding: 10,
-              opacity: 0.5,
-              fontSize: 16,
-              fontFamily: fontFamily.DMSans_500Italic,
-            }}
-          >
-            Surname...
-          </Text>
-          <TextInput
-            keyboardAppearance="dark"
-            style={{
-              width: "100%",
-              position: "absolute",
-              zIndex: 1,
-            }}
-          ></TextInput>
-        </View>
+        <TextInput
+          placeholder=" Firstname..."
+          style={styles.Inputstyle}
+          inputStyle={{ fontSize: wp(fontSizes[20]) }}
+          placeholderTextColor={color.grey}
+          fontFamily={fontFamily.DMSans_500Italic}
+        />
+        <TextInput
+          placeholder=" Surname..."
+          style={styles.Inputstyle}
+          inputStyle={{ fontSize: wp(fontSizes[20]) }}
+          placeholderTextColor={color.grey}
+          fontFamily={fontFamily.DMSans_500Italic}
+        />
       </View>
-      <View
+
+      <ShadowedView
         style={{
-          flex: 1.3,
+          flex: 1.5,
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "space-evenly",
           backgroundColor: color.white,
-          ...Platform.select({
-            ios: {
-              shadowColor: color.black,
-              shadowOffset: { width: 0, height: -3 }, // Only top shadow
-              shadowOpacity: 0.5,
-              shadowRadius: 3,
-            },
-            android: {
-              elevation: 25,
-            },
+          ...shadowStyle({
+            color: color.grey,
+            opacity: 0.25,
+            radius: 30,
+            offset: [0, -2],
           }),
         }}
       >
         <TouchableOpacity
           style={{
-            borderWidth: 1,
+            borderWidth: 1.5,
             borderColor: color.green,
             borderRadius: 4,
             flex: 2,
-            marginHorizontal: 15,
-            padding: spacing.md,
+            marginHorizontal: "5%",
+            paddingVertical: "4%",
+            paddingHorizontal: "2%",
           }}
           onPress={() => router.back()}
         >
           <Text
             style={{
               color: color.green,
-              fontSize: 18,
+              fontSize: wp(fontSizes[22]),
               fontFamily: fontFamily.Avenir_700,
               textAlign: "center",
             }}
@@ -202,15 +153,15 @@ const FinishAccount1: React.FC = () => {
             borderWidth: 1,
             borderRadius: 4,
             borderColor: color.green,
-            marginRight: 15,
-            padding: spacing.md,
+            marginRight: "5%",
+            padding: "4%",
           }}
           onPress={() => router.navigate("FinishAccount2")}
         >
           <Text
             style={{
               color: color.white,
-              fontSize: 18,
+              fontSize: wp(fontSizes[22]),
               fontFamily: fontFamily.Avenir_700,
               textAlign: "center",
             }}
@@ -218,7 +169,7 @@ const FinishAccount1: React.FC = () => {
             Next
           </Text>
         </TouchableOpacity>
-      </View>
+      </ShadowedView>
     </SafeAreaView>
   );
 };
@@ -227,8 +178,15 @@ export default FinishAccount1;
 
 const styles = StyleSheet.create({
   heading: {
-    fontSize: 24,
+    fontSize: wp(fontSizes[26]),
     lineHeight: 36,
     fontFamily: fontFamily.DMSans_700,
+  },
+  Inputstyle: {
+    backgroundColor: color.pureWhite,
+    borderColor: color.borderBlue,
+    borderWidth: 1,
+    borderRadius: 8,
+    paddingHorizontal: "2%",
   },
 });

@@ -6,7 +6,6 @@ import {
   StatusBar,
   StyleSheet,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
@@ -14,8 +13,13 @@ import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Link, useRouter } from "expo-router";
 import { color, fontFamily } from "../utils/Color";
-import { spacing } from "../utils/sizes";
-
+import { spacing, fontSizes } from "../utils/sizes";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
+import { TextInput } from "react-native-element-textinput";
+import { ShadowedView, shadowStyle } from "react-native-fast-shadow";
 const Product: React.FC = () => {
   const router = useRouter();
 
@@ -28,7 +32,8 @@ const Product: React.FC = () => {
     >
       <View
         style={{
-          flex: 4,
+          flex: 3.5,
+          zIndex: 1,
         }}
       >
         <ImageBackground
@@ -37,7 +42,7 @@ const Product: React.FC = () => {
             flex: 1,
             alignItems: "center",
             justifyContent: "flex-end",
-            padding: 25,
+            padding: "5%",
           }}
           resizeMode="stretch"
         >
@@ -48,8 +53,8 @@ const Product: React.FC = () => {
             <TouchableOpacity
               style={{
                 backgroundColor: color.white,
-                paddingHorizontal: 35,
-                paddingVertical: 10,
+                paddingHorizontal: "10%",
+                paddingVertical: "3%",
                 elevation: 2,
                 opacity: 0.8,
                 borderRadius: 4,
@@ -58,7 +63,7 @@ const Product: React.FC = () => {
               <Text
                 style={{
                   fontFamily: fontFamily.DMSans_700,
-                  fontSize: 18,
+                  fontSize: wp(fontSizes[22]),
                   lineHeight: 22,
                   textAlign: "center",
                 }}
@@ -69,110 +74,112 @@ const Product: React.FC = () => {
           </Link>
         </ImageBackground>
       </View>
+
+      <ShadowedView
+        style={{
+          flex: 0.2,
+          ...shadowStyle({
+            color: color.grey,
+            opacity: 0.3,
+            radius: 30,
+            offset: [0, -2],
+          }),
+        }}
+      ></ShadowedView>
+
       <View
         style={{
-          flex: 4.5,
-          padding: 10,
-          justifyContent: "space-evenly",
+          flex: 4.8,
+          paddingHorizontal: "4%",
         }}
       >
-        <KeyboardAvoidingView style={{ flex: 4.5 }}>
+        <View style={{ flex: 4.5, paddingHorizontal: "2%" }}>
           <View style={{ flexDirection: "row" }}>
-            <View style={{ flex: 7, paddingVertical: 15 }}>
+            <View
+              style={{
+                flex: 7.5,
+                paddingVertical: "4%",
+              }}
+            >
               <Text
                 style={{
                   fontFamily: fontFamily.DMSans_700,
-                  fontSize: 32,
-                  lineHeight: 48,
+                  fontSize: wp(fontSizes[30]),
+                  //lineHeight: 48,
                   textAlign: "left",
                 }}
               >
                 Puppy Heartbeat Stuffed Animal
               </Text>
             </View>
-            <View style={{ flex: 3 }}></View>
+            <View style={{ flex: 2.5 }}></View>
           </View>
 
           <Text
             style={{
               fontFamily: fontFamily.DMSans_700,
-              fontSize: 24,
-              lineHeight: 22,
+              fontSize: wp(fontSizes[28]),
+              //lineHeight: 22,
               textAlign: "left",
-              padding: 5,
             }}
           >
             £26.99
           </Text>
-        </KeyboardAvoidingView>
-        <KeyboardAvoidingView
-          style={{
-            flex: 3.5,
-            position: "relative",
-            marginVertical: 5,
-            marginHorizontal: 5,
-          }}
-        >
+        </View>
+        <KeyboardAvoidingView style={styles.Inputstyle}>
           <TextInput
             style={{
               width: "100%",
               height: "100%",
-              borderWidth: 1,
-              borderColor: "#00000040",
-              borderRadius: 8,
-              position: "absolute",
-              zIndex: 3,
+              padding: "4%",
             }}
-            multiline
-          />
-          <Text
-            style={{
-              fontFamily: fontFamily.DMSans_500Italic,
-              lineHeight: 16.52,
-              padding: 15,
+            inputStyle={{
+              textAlignVertical: "top",
+              justifyContent: "flex-start",
             }}
-          >
-            Add notes about the product...
-          </Text>
+            placeholder=" Add notes about the product..."
+            placeholderTextColor={color.black}
+            fontFamily={fontFamily.DMSans_500Italic}
+            multiline={true}
+            numberOfLines={4}
+          ></TextInput>
         </KeyboardAvoidingView>
         <View style={{ flex: 2 }}></View>
       </View>
-      <View
+
+      <ShadowedView
         style={{
           flex: 1.5,
           flexDirection: "row",
           alignItems: "center",
-          paddingHorizontal: 15,
+          justifyContent: "space-evenly",
           backgroundColor: color.white,
-          ...Platform.select({
-            ios: {
-              shadowColor: color.black,
-              shadowOffset: { width: 0, height: -3 }, // Only top shadow
-              shadowOpacity: 0.5,
-              shadowRadius: 3,
-            },
-            android: {
-              elevation: 25,
-            },
+          ...shadowStyle({
+            color: color.grey,
+            opacity: 0.25,
+            radius: 30,
+            offset: [0, -2],
           }),
         }}
       >
         <TouchableOpacity
           style={{
-            borderWidth: 1,
+            borderWidth: 1.5,
             borderColor: color.green,
+            borderRadius: 4,
             flex: 2,
-            marginRight: 15,
-            marginLeft: 15,
+            marginHorizontal: "5%",
+            paddingVertical: "4%",
+            paddingHorizontal: "2%",
           }}
+          onPress={() => router.back()}
         >
           <Text
             style={{
               color: color.green,
-              fontSize: 18,
+              fontSize: wp(fontSizes[22]),
               fontFamily: fontFamily.Avenir_700,
               textAlign: "center",
-              padding: 7,
             }}
           >
             Edit
@@ -183,28 +190,39 @@ const Product: React.FC = () => {
             backgroundColor: color.green,
             flex: 3,
             borderWidth: 1,
+            borderRadius: 4,
             borderColor: color.green,
+            marginRight: "5%",
+            padding: "4%",
           }}
           onPress={() => router.navigate("(Profile)")}
         >
           <Text
             style={{
               color: color.white,
-              fontSize: 18,
+              fontSize: wp(fontSizes[22]),
               fontFamily: fontFamily.Avenir_700,
               textAlign: "center",
-              paddingVertical: 7,
-              paddingHorizontal: 5,
             }}
           >
             Add Item
           </Text>
         </TouchableOpacity>
-      </View>
+      </ShadowedView>
     </SafeAreaView>
   );
 };
 
 export default Product;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  Inputstyle: {
+    flex: 3.5,
+    backgroundColor: color.pureWhite,
+    borderColor: color.black,
+    borderWidth: 0.5,
+    borderRadius: 8,
+    marginHorizontal: "2%",
+    marginBottom: "14%",
+  },
+});

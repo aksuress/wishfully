@@ -8,8 +8,9 @@ export const color = {
   progressGreen: "#00C18733",
   black: "#000000",
   lightBlue: "#F2F8FC",
-  navyBlue: "#017CC1",
+  navyBlue: "#0386BA",
   borderBlue: "#0286BA40",
+  grey: "#00000073",
   red: "#DF0000",
   paleRed: "#efd0d0",
 };

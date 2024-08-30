@@ -1,0 +1,472 @@
+type User
+  @model(
+    timestamps: { createdAt: "createdOn", updatedAt: "updatedOn" }
+    subscriptions: null
+    queries: { get: "getUser" }
+  )
+  @auth(
+    rules: [
+      { allow: groups, provider: userPools, groups: ["Admin"] }
+      { allow: owner, provider: userPools, operations: [create, update, read] }
+      { allow: private, provider: userPools, operations: [read] }
+      { allow: public, operations: [read] }
+    ]
+  ) {
+  id: ID!
+  firstName: String!
+  lastName: String!
+  uniqueId: String
+  statusMessage: String
+  version: Int
+  userDetails: UserDetails @connection(fields: ["id"])
+}
+
+type UserDetails
+  @model(
+    timestamps: { createdAt: "createdOn", updatedAt: "updatedOn" }
+    subscriptions: null
+    queries: { get: "getUserDetails" }
+  )
+  # @key(name: "UserByEmail", fields: ["email"], queryField: "userByEmail")
+  @auth(
+    rules: [
+      { allow: groups, provider: userPools, groups: ["Admin"] }
+      {
+        allow: owner
+        provider: userPools
+        operations: [create, update, delete, read]
+      }
+      { allow: private, provider: userPools, operations: [read] }
+    ]
+  ) {
+  id: ID!
+  currentTheme: String!
+  dateOfBirth: AWSDateTime
+  email: String!
+  phone: AWSPhone
+  dateJoined: AWSDateTime
+  twoFactorMode: String
+  version: Int
+  user: User @connection(fields: ["id"])
+  groups: [String]
+  events: [String]
+}
+
+type Wishlist
+  @model(
+    timestamps: { createdAt: "createdOn", updatedAt: "updatedOn" }
+    subscriptions: null
+    queries: { get: "getWishlist", list: "listWishlists" }
+  )
+  @key(
+    name: "WishlistsByUser"
+    fields: ["owner"]
+    queryField: "wishlistsByUser"
+  )
+  @auth(
+    rules: [
+      { allow: groups, provider: userPools, groups: ["Admin"] }
+      {
+        allow: owner
+        provider: userPools
+        operations: [create, update, delete, read]
+      }
+      { allow: private, provider: userPools, operations: [read] }
+      { allow: public, operations: [read] }
+    ]
+  ) {
+  id: ID!
+  owner: ID!
+  name: String!
+  isVisibleToPublic: Boolean
+  isVisibleToGroups: Boolean
+  isEvent: Boolean
+  version: Int
+  onDate: AWSDateTime
+  wishlistType: EventType
+  items: [WishlistItem]
+    @connection(keyName: "ItemsByWishlistId", fields: ["id"])
+}
+
+type WishlistItem
+  @model(
+    timestamps: { createdAt: "createdOn", updatedAt: "updatedOn" }
+    subscriptions: null
+    queries: { get: "getWishlistItem", list: "listWishlistItems" }
+  )
+  @key(
+    name: "ItemsByWishlistId"
+    fields: ["wishlistId"]
+    queryField: "itemsByWishlistId"
+  )
+  @auth(
+    rules: [
+      { allow: groups, provider: userPools, groups: ["Admin"] }
+      {
+        allow: owner
+        provider: userPools
+        operations: [create, update, delete, read]
+      }
+      { allow: private, provider: userPools, operations: [read] }
+      { allow: public, operations: [read] }
+    ]
+  ) {
+  id: ID!
+  owner: ID!
+  wishlistId: ID!
+  name: String!
+  description: String
+  url: String
+  price: Float
+  isArchived: Boolean
+  isClaimed: Boolean
+  isBought: Boolean
+  version: Int
+  claims: [WishlistItemClaim]
+    @connection(keyName: "ClaimsByWishlistItemId", fields: ["id"])
+}
+
+type WishlistItemClaim
+  @model(
+    timestamps: { createdAt: "createdOn", updatedAt: "updatedOn" }
+    subscriptions: null
+  )
+  @key(
+    name: "ClaimsByWishlistItemId"
+    fields: ["wishlistItemId"]
+    queryField: "claimsByWishlistItemId"
+  )
+  @auth(
+    rules: [
+      { allow: groups, provider: userPools, groups: ["Admin"] }
+      {
+        allow: owner
+        provider: userPools
+        operations: [create, update, delete, read]
+      }
+      { allow: private, provider: userPools, operations: [read] }
+      { allow: public, operations: [read] }
+    ]
+  ) {
+  id: ID!
+  owner: ID!
+  wishlistItemId: ID!
+  isVisibleToOwner: Boolean
+  isVisibleToOthers: Boolean
+  isBought: Boolean
+  isReturned: Boolean
+  version: Int
+}
+
+type Invite
+  @model(
+    timestamps: { createdAt: "createdOn", updatedAt: "updatedOn" }
+    subscriptions: null
+    queries: { get: "getInvite", list: "listInvites" }
+  )
+  @key(name: "InvitesByUser", fields: ["owner"], queryField: "invitesByUser")
+  @auth(
+    rules: [
+      { allow: groups, provider: userPools, groups: ["Admin"] }
+      { allow: owner, provider: userPools, operations: [create, read] }
+    ]
+  ) {
+  id: ID!
+  owner: ID!
+  userId: ID
+  name: String
+  email: String!
+  inviteCdoe: String
+  joined: Boolean
+  dateJoined: AWSDateTime
+  version: Int
+}
+
+type GroupInvite
+  @model(
+    timestamps: { createdAt: "createdOn", updatedAt: "updatedOn" }
+    subscriptions: null
+    queries: { get: "getGroupInvite", list: "listGroupInvites" }
+  )
+  @key(
+    name: "GroupInvitesByUser"
+    fields: ["owner"]
+    queryField: "groupInvitesByUser"
+  )
+  @key(
+    name: "GroupInvitesByGroup"
+    fields: ["groupId"]
+    queryField: "groupInvitesByGroup"
+  )
+  @auth(
+    rules: [
+      { allow: groups, provider: userPools, groups: ["Admin"] }
+      { allow: owner, provider: userPools, operations: [create, read, update] }
+      { allow: private, provider: userPools, operations: [read, update] }
+      { allow: public, operations: [read] }
+    ]
+  ) {
+  id: ID!
+  owner: ID!
+  userId: ID
+  name: String
+  email: String!
+  inviteCdoe: String
+  joined: Boolean
+  dateJoined: AWSDateTime
+  groupId: ID!
+  version: Int
+  sender: User @connection(fields: ["owner"])
+  group: Group @connection(fields: ["groupId"])
+}
+
+type Group
+  @model(
+    timestamps: { createdAt: "createdOn", updatedAt: "updatedOn" }
+    subscriptions: null
+    queries: { get: "getGroup", list: "listGroups" }
+  )
+  @auth(
+    rules: [
+      { allow: groups, provider: userPools, groups: ["Admin"] }
+      { allow: owner, provider: userPools, operations: [create, update, read] }
+      { allow: private, provider: userPools, operations: [read] }
+      { allow: public, operations: [read] }
+    ]
+  ) {
+  id: ID!
+  owner: ID!
+  name: String!
+  isArchived: Boolean
+  publicID: String!
+  needApproval: Boolean
+  version: Int
+  wishlists: [GroupWishlists]
+    @connection(keyName: "WishlistsByGroup", fields: ["id"])
+  groupUsers: [GroupUser] @connection(keyName: "UsersByGroup", fields: ["id"])
+  invites: [GroupInvite]
+    @connection(keyName: "GroupInvitesByGroup", fields: ["id"])
+}
+
+type GroupWishlists
+  @model(
+    timestamps: { createdAt: "createdOn", updatedAt: "updatedOn" }
+    subscriptions: null
+  )
+  @key(
+    name: "WishlistsByGroup"
+    fields: ["groupId"]
+    queryField: "wishlistsByGroup"
+  )
+  @auth(
+    rules: [
+      { allow: groups, provider: userPools, groups: ["Admin"] }
+      {
+        allow: owner
+        provider: userPools
+        operations: [create, update, delete, read]
+      }
+      { allow: private, provider: userPools, operations: [read] }
+    ]
+  ) {
+  id: ID!
+  owner: ID!
+  wishlistId: ID!
+  wishlist: Wishlist @connection(fields: ["wishlistId"])
+  groupId: ID!
+}
+
+type GroupUser
+  @model(
+    timestamps: { createdAt: "createdOn", updatedAt: "updatedOn" }
+    subscriptions: null
+  )
+  @key(name: "UsersByGroup", fields: ["groupId"], queryField: "usersByGroup")
+  @key(name: "GroupsByUser", fields: ["owner"], queryField: "groupsByUser")
+  @auth(
+    rules: [
+      { allow: groups, provider: userPools, groups: ["Admin"] }
+      { allow: owner, provider: userPools, operations: [create, update, read] }
+      { allow: private, provider: userPools, operations: [read, update] }
+      { allow: public, operations: [read, update] }
+    ]
+  ) {
+  id: ID!
+  groupId: ID!
+  owner: ID!
+  isArchived: Boolean
+  isApproved: Boolean
+  isAdmin: Boolean
+  user: User @connection(fields: ["owner"])
+  group: Group @connection(fields: ["groupId"])
+  version: Int
+}
+
+type EventUser
+  @model(
+    timestamps: { createdAt: "createdOn", updatedAt: "updatedOn" }
+    subscriptions: null
+  )
+  @key(name: "UsersByEvent", fields: ["eventId"], queryField: "usersByEvent")
+  @key(name: "EventsByUser", fields: ["owner"], queryField: "eventsByUser")
+  @auth(
+    rules: [
+      { allow: groups, provider: userPools, groups: ["Admin"] }
+      { allow: owner, provider: userPools, operations: [create, update, read] }
+      { allow: private, provider: userPools, operations: [read, update] }
+      { allow: public, operations: [read, update] }
+    ]
+  ) {
+  id: ID!
+  eventId: ID!
+  owner: ID!
+  isArchived: Boolean
+  isApproved: Boolean
+  isAdmin: Boolean
+  user: User @connection(fields: ["owner"])
+  event: Event @connection(fields: ["eventId"])
+  version: Int
+}
+type Event
+  @model(
+    timestamps: { createdAt: "createdOn", updatedAt: "updatedOn" }
+    subscriptions: null
+  )
+  @auth(
+    rules: [
+      { allow: groups, provider: userPools, groups: ["Admin"] }
+      { allow: owner, provider: userPools, operations: [create, update, read] }
+      { allow: private, provider: userPools, operations: [read] }
+      { allow: public, operations: [read] }
+    ]
+  ) {
+  id: ID!
+  owner: ID!
+  name: String!
+  details: String
+  publicID: String!
+  needApproval: Boolean
+  eventType: EventType
+  eventUserId: ID
+  eventDate: AWSDateTime
+  isPrivate: Boolean
+  isGroup: Boolean
+  isPublic: Boolean
+  groupId: ID
+  wishlistId: ID!
+  version: Int
+  isArchived: Boolean
+  wishlist: Wishlist @connection(fields: ["wishlistId"])
+  invites: [EventInvite] @connection(keyName: "InvitesByEvent", fields: ["id"])
+  users: [EventUser] @connection(keyName: "UsersByEvent", fields: ["id"])
+}
+
+enum EventType {
+  birthday
+  event
+  wedding
+  anniversary
+  housewarming
+}
+
+type EventInvite
+  @model(
+    timestamps: { createdAt: "createdOn", updatedAt: "updatedOn" }
+    subscriptions: null
+  )
+  @key(
+    name: "InvitesByEvent"
+    fields: ["eventId"]
+    queryField: "invitesByEvent"
+  )
+  @key(
+    name: "EventInvitesByUser"
+    fields: ["owner"]
+    queryField: "eventInvitesByUser"
+  )
+  @auth(
+    rules: [
+      { allow: groups, provider: userPools, groups: ["Admin"] }
+      { allow: owner, provider: userPools, operations: [create, read, update] }
+      { allow: private, provider: userPools, operations: [read, update] }
+      { allow: public, operations: [read] }
+    ]
+  ) {
+  id: ID!
+  owner: ID!
+  eventId: ID!
+  userId: ID
+  email: String
+  subject: String
+  message: String
+  sender: User @connection(fields: ["owner"])
+  event: Event @connection(fields: ["eventId"])
+  status: EventInviteStatus
+}
+
+enum EventInviteStatus {
+  interested
+  going
+}
+
+type GroupPosts
+  @model(
+    timestamps: { createdAt: "createdOn", updatedAt: "updatedOn" }
+    subscriptions: null
+  )
+  @key(name: "groupPostsByDate", fields: ["groupId", "createdOn"], queryField: "groupPostsByDate")
+  @auth(
+    rules: [
+      { allow: groups, provider: userPools, groups: ["Admin"] }
+      {
+        allow: owner
+        provider: userPools
+        operations: [create, update, delete, read]
+      }
+      { allow: private, provider: userPools, operations: [read] }
+      { allow: public, operations: [read] }
+    ]
+  ) {
+  id: ID!
+  owner: ID!
+  createdOn: AWSDateTime!
+  message: String!
+  groupId: ID
+  version: Int
+  user: User @connection(fields: ["owner"])
+  userDetails: UserDetails @connection(fields: ["owner"])
+}
+
+type EventPosts
+  @model(
+    timestamps: { createdAt: "createdOn", updatedAt: "updatedOn" }
+    subscriptions: null
+  )
+  @key(name: "eventPostsByDate", fields: ["eventId", "createdOn"], queryField: "eventPostsByDate")
+  @auth(
+    rules: [
+      { allow: groups, provider: userPools, groups: ["Admin"] }
+      {
+        allow: owner
+        provider: userPools
+        operations: [create, update, delete, read]
+      }
+      { allow: private, provider: userPools, operations: [read] }
+      { allow: public, operations: [read] }
+    ]
+  ) {
+  id: ID!
+  owner: ID!
+  createdOn: AWSDateTime!
+  message: String!
+  eventId: ID
+  version: Int
+  user: User @connection(fields: ["owner"])
+  userDetails: UserDetails @connection(fields: ["owner"])
+}
+type Subscription {
+  onGroupPostsCreated(groupId: ID): GroupPosts
+    @aws_subscribe(mutations: ["createGroupPosts"])
+  onEventPostsCreated(eventId: ID): EventPosts
+    @aws_subscribe(mutations: ["createEventPosts"])
+}

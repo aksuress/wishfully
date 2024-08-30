@@ -18,7 +18,7 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/login.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "green"
       },
       "package": "com.yohanpmdg.wishful"
     },
@@ -32,7 +32,8 @@
       [
         "@react-native-google-signin/google-signin",
         {
-          "iosUrlScheme": "com.googleusercontent.apps._some_id_here_"
+          "iosUrlScheme": "com.googleusercontent.apps._some_id_here_",
+          "android.config.googleMaps.apiKey": "AIzaSyCYGxfDvqAnsU3k3ZBSFT-U17C_peKqGdc"
         }
       ],
 

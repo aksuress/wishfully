@@ -1,0 +1,9 @@
+{
+    "Version": 5,
+    "ElasticsearchWarning": true,
+    "ResolverConfig": {},
+    "StackMapping": {
+        "QuerywishlistsByGroupResolver": "GroupWishlists",
+        "QuerygroupsByUserResolver": "Group"
+    }
+}

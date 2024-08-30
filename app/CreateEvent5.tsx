@@ -1,9 +1,7 @@
 import {
-  Platform,
-  Switch,
+  KeyboardAvoidingView,
   StyleSheet,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
@@ -13,6 +11,12 @@ import { Link, useRouter } from "expo-router";
 import * as ImagePicker from "expo-image-picker";
 import { color, fontFamily } from "../utils/Color";
 import { spacing, fontSizes } from "../utils/sizes";
+import { ShadowedView, shadowStyle } from "react-native-fast-shadow";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
+import { TextInput } from "react-native-element-textinput";
 
 const CreateEvent5: React.FC = () => {
   const router = useRouter();
@@ -46,7 +50,7 @@ const CreateEvent5: React.FC = () => {
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "space-between",
-          paddingHorizontal: 15,
+          paddingHorizontal: "5%",
         }}
       >
         <Text style={styles.heading}>Create Event</Text>
@@ -56,7 +60,7 @@ const CreateEvent5: React.FC = () => {
             style={{
               color: color.red,
               fontFamily: fontFamily.DMSans_700,
-              fontSize: 14,
+              fontSize: wp(fontSizes[20]),
             }}
           >
             Cancel
@@ -69,28 +73,36 @@ const CreateEvent5: React.FC = () => {
           flexDirection: "row",
         }}
       >
-        <View style={{ flex: 2, backgroundColor: color.green }}></View>
+        <View
+          style={{
+            flex: 2,
+            backgroundColor: color.green,
+            borderTopRightRadius: 4,
+            borderBottomEndRadius: 4,
+          }}
+        ></View>
         <View style={{ flex: 8, backgroundColor: color.progressGreen }}></View>
       </View>
       <View
         style={{
           flex: 6.7,
-          alignItems: "center",
+          alignItems: "flex-start",
           justifyContent: "center",
-          paddingHorizontal: 15,
+          paddingHorizontal: "5%",
         }}
       >
         <View
           style={{
-            justifyContent: "space-around",
+            flex: 3.5,
+            justifyContent: "center",
             gap: 10,
           }}
         >
           <Text
             style={{
               fontFamily: fontFamily.DMSans_700,
-              fontSize: 32,
-              lineHeight: 44,
+              fontSize: wp(fontSizes[32]),
+              //lineHeight: 44,
             }}
           >
             Add a description of your event
@@ -98,47 +110,48 @@ const CreateEvent5: React.FC = () => {
           <Text
             style={{
               fontFamily: fontFamily.DMSans_500,
-              fontSize: 18,
-              lineHeight: 27,
+              fontSize: wp(fontSizes[22]),
+              // lineHeight: 27,
+              paddingRight: "15%",
             }}
           >
             Give your guests some extra information about the event
           </Text>
-          <View
+        </View>
+
+        <KeyboardAvoidingView style={styles.Inputstyle}>
+          <TextInput
             style={{
-              height: "35%",
-              backgroundColor: color.white,
-              borderRadius: 8,
-              marginVertical: 10,
-              position: "relative",
-              elevation: 2,
+              width: "100%",
+              height: "100%",
+              padding: "4%",
             }}
-          >
-            <Text
-              style={{
-                zIndex: 0,
-                padding: 5,
-                fontFamily: fontFamily.DMSans_500Italic,
-                opacity: 0.5,
-              }}
-            >
-              Description...
-            </Text>
-            <TextInput
-              style={{
-                height: 140,
-                width: "100%",
-                position: "absolute",
-                zIndex: 1,
-              }}
-            />
-          </View>
+            inputStyle={{
+              textAlignVertical: "top",
+              justifyContent: "flex-start",
+            }}
+            placeholder="Description..."
+            placeholderTextColor={color.grey}
+            fontFamily={fontFamily.DMSans_500Italic}
+            multiline={true}
+            numberOfLines={4}
+          ></TextInput>
+        </KeyboardAvoidingView>
+
+        <View
+          style={{
+            flex: 2.5,
+            justifyContent: "center",
+            width: "100%",
+            gap: 5,
+          }}
+        >
           <TouchableOpacity
             style={{
-              padding: 8,
+              padding: "4%",
               borderColor: color.green,
               borderWidth: 1,
-              borderRadius: 4,
+              borderRadius: 8,
               backgroundColor: color.pureWhite,
             }}
             onPress={pickImage}
@@ -146,8 +159,8 @@ const CreateEvent5: React.FC = () => {
             <Text
               style={{
                 fontFamily: fontFamily.DMSans_700,
-                fontSize: 18,
-                lineHeight: 22,
+                fontSize: wp(fontSizes[22]),
+                //lineHeight: 22,
                 textAlign: "center",
                 color: color.green,
               }}
@@ -158,50 +171,48 @@ const CreateEvent5: React.FC = () => {
           <Text
             style={{
               fontFamily: fontFamily.DMSans_400,
-              fontSize: 12,
+              fontSize: wp(fontSizes[12]),
               lineHeight: 22,
-              textAlign: "center",
+              alignSelf: "center",
             }}
           >
             A cover photo is optional and can be added later
           </Text>
         </View>
+
+        <View style={{ flex: 0.5 }}></View>
       </View>
-      <View
+      <ShadowedView
         style={{
           flex: 1.3,
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "space-evenly",
-          backgroundColor: "#FFFFFF",
-          ...Platform.select({
-            ios: {
-              shadowColor: color.black,
-              shadowOffset: { width: 0, height: -3 }, // Only top shadow
-              shadowOpacity: 0.5,
-              shadowRadius: 3,
-            },
-            android: {
-              elevation: 25,
-            },
+          backgroundColor: color.white,
+          ...shadowStyle({
+            color: color.grey,
+            opacity: 0.25,
+            radius: 30,
+            offset: [0, -2],
           }),
         }}
       >
         <TouchableOpacity
           style={{
-            borderWidth: 1,
+            borderWidth: 1.5,
             borderColor: color.green,
             borderRadius: 4,
             flex: 2,
-            marginHorizontal: 15,
-            padding: spacing.md,
+            marginHorizontal: "5%",
+            paddingVertical: "4%",
+            paddingHorizontal: "2%",
           }}
           onPress={() => router.back()}
         >
           <Text
             style={{
               color: color.green,
-              fontSize: 18,
+              fontSize: wp(fontSizes[22]),
               fontFamily: fontFamily.Avenir_700,
               textAlign: "center",
             }}
@@ -211,20 +222,20 @@ const CreateEvent5: React.FC = () => {
         </TouchableOpacity>
         <TouchableOpacity
           style={{
-            backgroundColor: color.green,
+            backgroundColor: color.blueGreen,
             flex: 3,
             borderWidth: 1,
-            borderColor: color.green,
             borderRadius: 4,
-            marginRight: 15,
-            padding: spacing.md,
+            borderColor: color.green,
+            marginRight: "5%",
+            padding: "4%",
           }}
           onPress={() => router.navigate("CreateEvent6")}
         >
           <Text
             style={{
               color: color.white,
-              fontSize: 18,
+              fontSize: wp(fontSizes[22]),
               fontFamily: fontFamily.Avenir_700,
               textAlign: "center",
             }}
@@ -232,7 +243,7 @@ const CreateEvent5: React.FC = () => {
             Skip
           </Text>
         </TouchableOpacity>
-      </View>
+      </ShadowedView>
     </SafeAreaView>
   );
 };
@@ -241,8 +252,16 @@ export default CreateEvent5;
 
 const styles = StyleSheet.create({
   heading: {
-    fontSize: 24,
-    lineHeight: 36,
+    fontSize: wp(fontSizes[26]),
+    //lineHeight: 36,
     fontFamily: fontFamily.DMSans_700,
+    color: color.black,
+  },
+  Inputstyle: {
+    flex: 3.5,
+    backgroundColor: color.pureWhite,
+    borderColor: color.navyBlue,
+    borderWidth: 0.5,
+    borderRadius: 8,
   },
 });
