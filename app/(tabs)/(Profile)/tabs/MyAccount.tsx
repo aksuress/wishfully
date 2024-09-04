@@ -207,6 +207,7 @@ const MyAccount: React.FC = () => {
           onPress={async () => {
             await signOut();
             router.navigate("/");
+            console.log("You are signed out");
           }}
           style={{
             width: "48%",

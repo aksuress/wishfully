@@ -13,14 +13,19 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "runtimeVersion": {
+        "policy": "appVersion"
+      },
+      "bundleIdentifier": "com.yohanpmdg.wishful"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/login.png",
         "backgroundColor": "green"
       },
-      "package": "com.yohanpmdg.wishful"
+      "package": "com.yohanpmdg.wishful",
+      "runtimeVersion": "1.0.0"
     },
     "web": {
       "bundler": "metro",
@@ -36,7 +41,6 @@
           "android.config.googleMaps.apiKey": "AIzaSyCYGxfDvqAnsU3k3ZBSFT-U17C_peKqGdc"
         }
       ],
-
       "expo-font"
     ],
     "experiments": {
@@ -50,6 +54,9 @@
         "projectId": "69a12852-b4e5-42fb-8126-383291bd68d0"
       }
     },
-    "owner": "yohanpmdg"
+    "owner": "yohanpmdg",
+    "updates": {
+      "url": "https://u.expo.dev/69a12852-b4e5-42fb-8126-383291bd68d0"
+    }
   }
 }

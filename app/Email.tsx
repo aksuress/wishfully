@@ -18,9 +18,76 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
+import {
+  signUp,
+  confirmSignUp,
+  type ConfirmSignUpInput,
+} from "aws-amplify/auth";
+
+type SignUpParameters = {
+  password: string;
+  email: string;
+};
 
 const Email: React.FC = () => {
+  const [email, setEmail] = useState("");
+  const [password, setpassword] = useState("");
+  const [firstName, setFirstName] = useState("kng");
+  const [lastName, setLastname] = useState("yogan");
   const router = useRouter();
+  const [showVerify, setShowVerify] = useState(false);
+  const [verify, setVerify] = useState("");
+
+  async function handleSignUp({ email, password }: SignUpParameters) {
+    console.log(email, password);
+
+    try {
+      if (showVerify) {
+        await handleSignUpConfirmation({
+          username: email,
+          confirmationCode: verify,
+        });
+      } else {
+        const { isSignUpComplete, userId, nextStep } = await signUp({
+          username: email,
+          password,
+          options: {
+            userAttributes: {
+              email: email,
+            
+            },
+            // optional
+            autoSignIn: true, // or SignInOptions e.g { authFlowType: "USER_SRP_AUTH" }
+          },
+        });
+        console.log(userId);
+        setShowVerify(true);
+      }
+    } catch (error) {
+      console.log("error signing up:", error);
+    }
+  }
+
+  async function handleSignUpConfirmation({
+    username,
+    confirmationCode,
+  }: ConfirmSignUpInput) {
+    try {
+      const { isSignUpComplete, nextStep } = await confirmSignUp({
+        username,
+        confirmationCode,
+      });
+
+      if (isSignUpComplete) {
+        console.log("success");
+        router.navigate("(tabs)");
+      } else {
+        console.log("OTP confirmation failed");
+      }
+    } catch (error) {
+      console.log("error confirming sign up", error);
+    }
+  }
 
   return (
     <SafeAreaView
@@ -80,6 +147,7 @@ const Email: React.FC = () => {
         >
           <Image source={require("../assets/images/logo.png")} />
         </View>
+
         <View
           style={{
             flex: 6.5,
@@ -88,33 +156,50 @@ const Email: React.FC = () => {
             gap: 8,
           }}
         >
-          <Text
-            style={{
-              fontSize: wp(fontSizes[26]),
-              lineHeight: 36,
-              fontFamily: fontFamily.DMSans_700,
-              color: "white",
-              textAlign: "left",
-            }}
-          >
-            Create account
-          </Text>
-          <TextInput
-            placeholder=" Email..."
-            style={styles.Inputstyle}
-            inputStyle={{ fontSize: wp(fontSizes[20]) }}
-            placeholderTextColor={color.grey}
-            fontFamily={fontFamily.DMSans_500Italic}
-          />
-          <TextInput
-            placeholder=" Password..."
-            style={styles.Inputstyle}
-            inputStyle={{ fontSize: wp(fontSizes[20]) }}
-            placeholderTextColor={color.grey}
-            fontFamily={fontFamily.DMSans_500Italic}
-            mode="password"
-          />
-
+          {!showVerify ? (
+            <>
+              <Text
+                style={{
+                  fontSize: wp(fontSizes[26]),
+                  lineHeight: 36,
+                  fontFamily: fontFamily.DMSans_700,
+                  color: "white",
+                  textAlign: "left",
+                }}
+              >
+                Create account
+              </Text>
+              <TextInput
+                placeholder=" Email..."
+                style={styles.Inputstyle}
+                inputStyle={{ fontSize: wp(fontSizes[20]) }}
+                placeholderTextColor={color.grey}
+                fontFamily={fontFamily.DMSans_500Italic}
+                value={email}
+                onChangeText={(inp) => setEmail(inp)}
+              />
+              <TextInput
+                placeholder=" Password..."
+                style={styles.Inputstyle}
+                inputStyle={{ fontSize: wp(fontSizes[20]) }}
+                placeholderTextColor={color.grey}
+                fontFamily={fontFamily.DMSans_500Italic}
+                mode="password"
+                value={password}
+                onChangeText={(inp) => setpassword(inp)}
+              />
+            </>
+          ) : (
+            <TextInput
+              placeholder=" verification..."
+              style={styles.Inputstyle}
+              inputStyle={{ fontSize: wp(fontSizes[20]) }}
+              placeholderTextColor={color.grey}
+              fontFamily={fontFamily.DMSans_500Italic}
+              value={verify}
+              onChangeText={(inp) => setVerify(inp)}
+            />
+          )}
           <View
             style={{
               width: "100%",
@@ -123,6 +208,7 @@ const Email: React.FC = () => {
             }}
           >
             <TouchableOpacity
+              onPress={() => handleSignUp({ email, password })}
               style={{
                 width: "100%",
                 backgroundColor: color.green,

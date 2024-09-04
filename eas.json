@@ -3,7 +3,7 @@
     "version": ">= 10.0.3"
   },
   "build": {
-    "preview2": {
+    "preview3": {
       "distribution": "internal",
       "android": {
         "buildType": "apk"

@@ -21,38 +21,10 @@
         "wishfullyInvitesy87edr": {},
         "eventuseraddedit": {},
         "groupuseraddedit": {},
-        "wishfullyPresignup8a7sdyf98w34": {},
-        "wishfully": {}
+        "wishfullyPresignup8a7sdyf98w34": {}
       },
       "storage": {
         "s3e227453a": {}
-      }
-    }
-  },
-  "dev": {
-    "awscloudformation": {
-      "AuthRoleName": "amplify-wishfully-dev-ca299-authRole",
-      "UnauthRoleArn": "arn:aws:iam::062522144148:role/amplify-wishfully-dev-ca299-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::062522144148:role/amplify-wishfully-dev-ca299-authRole",
-      "Region": "eu-west-2",
-      "DeploymentBucketName": "amplify-wishfully-dev-ca299-deployment",
-      "UnauthRoleName": "amplify-wishfully-dev-ca299-unauthRole",
-      "StackName": "amplify-wishfully-dev-ca299",
-      "StackId": "arn:aws:cloudformation:eu-west-2:062522144148:stack/amplify-wishfully-dev-ca299/2c7118f0-66e8-11ef-8490-06614062e8f7",
-      "AmplifyAppId": "d3k5ohqjfomf1s"
-    },
-    "categories": {
-      "auth": {
-        "wishfully1d4d9adf": {}
-      },
-      "function": {
-        "eventuseraddedit": {},
-        "groupuseraddedit": {},
-        "wishfullyInvitesy87edr": {},
-        "wishfullyLambdaEventInvitesw8e7ry": {},
-        "wishfullyLambdaGroupInvites28734ywe87r": {},
-        "wishfullyPresignup8a7sdyf98w34": {},
-        "wishfully": {}
       }
     }
   }

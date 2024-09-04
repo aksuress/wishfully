@@ -23,28 +23,24 @@ export type AmplifyDependentResourcesAttributes = {
     "eventuseraddedit": {
       "Arn": "string",
       "LambdaExecutionRole": "string",
-      "LambdaExecutionRoleArn": "string",
       "Name": "string",
       "Region": "string"
     },
     "groupuseraddedit": {
       "Arn": "string",
       "LambdaExecutionRole": "string",
-      "LambdaExecutionRoleArn": "string",
       "Name": "string",
       "Region": "string"
     },
     "wishfullyInvitesy87edr": {
       "Arn": "string",
       "LambdaExecutionRole": "string",
-      "LambdaExecutionRoleArn": "string",
       "Name": "string",
       "Region": "string"
     },
     "wishfullyLambdaEventInvitesw8e7ry": {
       "Arn": "string",
       "LambdaExecutionRole": "string",
-      "LambdaExecutionRoleArn": "string",
       "Name": "string",
       "Region": "string"
     },
@@ -52,14 +48,12 @@ export type AmplifyDependentResourcesAttributes = {
       "Arn": "string",
       "CloudWatchEventRule": "string",
       "LambdaExecutionRole": "string",
-      "LambdaExecutionRoleArn": "string",
       "Name": "string",
       "Region": "string"
     },
     "wishfullyPresignup8a7sdyf98w34": {
       "Arn": "string",
       "LambdaExecutionRole": "string",
-      "LambdaExecutionRoleArn": "string",
       "Name": "string",
       "Region": "string"
     }

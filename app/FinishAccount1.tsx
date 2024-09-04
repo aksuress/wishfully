@@ -10,6 +10,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
+import Auth from "aws-amplify/auth";
 
 const FinishAccount1: React.FC = () => {
   const router = useRouter();
@@ -156,7 +157,16 @@ const FinishAccount1: React.FC = () => {
             marginRight: "5%",
             padding: "4%",
           }}
-          onPress={() => router.navigate("FinishAccount2")}
+          onPress={async () => {
+            const { userdetail } = await Auth.updateUserAttributes({
+              userAttributes: {
+                given_name: "firstName",
+                family_name: "lastName",
+              },
+            });
+            console.log(userdetail);
+            //router.navigate("FinishAccount2");
+          }}
         >
           <Text
             style={{
